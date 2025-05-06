@@ -2,7 +2,6 @@
 Table city {
   id int [pk, increment]
   name varchar(100)
-  province varchar(100)
 }
 
 Table cinema {
@@ -22,6 +21,8 @@ Table cinema_hall {
   cinema_id int [ref: > cinema.id]
   name varchar(50)
   hall_type_id int [ref: > cinema_hall_type.id]
+  row_total int
+  col_total int
 }
 
 Table seat_element {
