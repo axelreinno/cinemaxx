@@ -1,5 +1,3 @@
-
-
 ```
 Table city {
   id int [pk, increment]
@@ -14,29 +12,31 @@ Table cinema {
   city_id int [ref: > city.id]
 }
 
-Table hall_type {
+Table cinema_hall_type {
   id int [pk, increment]
   type varchar(50)
 }
 
-Table hall {
+Table cinema_hall {
   id int [pk, increment]
   cinema_id int [ref: > cinema.id]
   name varchar(50)
-  hall_type_id int [ref: > hall_type.id]
+  hall_type_id int [ref: > cinema_hall_type.id]
 }
 
-Table seat_type {
+Table seat_element {
   id int [pk, increment]
-  type varchar(50)
+  element varchar(50)
 }
 
 Table seat {
   id int [pk, increment]
-  hall_id int [ref: > hall.id]
-  seat_type_id int [ref: > seat_type.id]
-  row_number varchar(5)
-  seat_number int
+  hall_id int [ref: > cinema_hall.id]
+  seat_element_id int [ref: > seat_element.id]
+  row_index int
+  col_index int
+  label varchar
+  status enum('ACTIVE', 'INACTIVE')
 }
 
 Table genre {
@@ -70,10 +70,10 @@ Table movie_rating {
   rating_time datetime
 }
 
-Table show {
+Table showtime {
   id int [pk, increment]
   movie_id int [ref: > movie.id]
-  hall_id int [ref: > hall.id]
+  hall_id int [ref: > cinema_hall.id]
   start_time datetime
   end_time datetime
   price decimal(10,2)
@@ -89,7 +89,7 @@ Table user {
 Table booking {
   id int [pk, increment]
   user_id int [ref: > user.id]
-  show_id int [ref: > show.id]
+  show_id int [ref: > showtime.id]
   booking_time datetime
   status varchar(20)
   total_amount decimal(10,2)
@@ -99,7 +99,6 @@ Table booking_seat {
   id int [pk, increment]
   booking_id int [ref: > booking.id]
   seat_id int [ref: > seat.id]
-  show_id int [ref: > show.id]
   price decimal(10,2)
 }
 
