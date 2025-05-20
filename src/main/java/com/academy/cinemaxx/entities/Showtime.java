@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "showtime", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "showtime_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE showtime SET deleted = true WHERE id = ?")
 public class Showtime extends BaseEntity{
@@ -34,5 +34,4 @@ public class Showtime extends BaseEntity{
 
     @Column(nullable = false)
     private BigDecimal price;
-
 }

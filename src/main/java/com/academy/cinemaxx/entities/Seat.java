@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 @Data
 @Entity
 @Table(name = "seat", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "seat_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE seat SET deleted = true WHERE id = ?")
 public class Seat extends BaseEntity {

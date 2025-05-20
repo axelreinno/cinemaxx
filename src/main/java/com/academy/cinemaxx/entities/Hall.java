@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "hall", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "hall_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE hall SET deleted = true WHERE id = ?")
 public class Hall extends BaseEntity {

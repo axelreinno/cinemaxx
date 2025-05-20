@@ -10,10 +10,10 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "user", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+@Table(name = "users", indexes = {
+        @Index(name = "users_secure_id", columnList = "secure_id")
 })
-@SQLDelete(sql = "UPDATE user SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,4 @@ public class User extends BaseEntity {
     private String email;
 
     private String phone;
-
-    @OneToMany(mappedBy = "user")
-    private List<MovieRating> ratings;
 }
