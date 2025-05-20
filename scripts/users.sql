@@ -1,0 +1,22 @@
+INSERT INTO public.users (name, email, phone, secure_id, created_at, updated_at)
+VALUES
+('Andi Pratama', 'andi.pratama@example.com', '081234567801', gen_random_uuid(), now(), now()),
+('Budi Santoso', 'budi.santoso@example.com', '081234567802', gen_random_uuid(), now(), now()),
+('Clara Wijaya', 'clara.wijaya@example.com', '081234567803', gen_random_uuid(), now(), now()),
+('Dewi Lestari', 'dewi.lestari@example.com', '081234567804', gen_random_uuid(), now(), now()),
+('Eka Saputra', 'eka.saputra@example.com', '081234567805', gen_random_uuid(), now(), now()),
+('Fajar Hidayat', 'fajar.hidayat@example.com', '081234567806', gen_random_uuid(), now(), now()),
+('Gita Ayu', 'gita.ayu@example.com', '081234567807', gen_random_uuid(), now(), now()),
+('Hendra Gunawan', 'hendra.gunawan@example.com', '081234567808', gen_random_uuid(), now(), now()),
+('Indah Permata', 'indah.permata@example.com', '081234567809', gen_random_uuid(), now(), now()),
+('Joko Subroto', 'joko.subroto@example.com', '081234567810', gen_random_uuid(), now(), now()),
+('Kiki Amelia', 'kiki.amelia@example.com', '081234567811', gen_random_uuid(), now(), now()),
+('Lina Marlina', 'lina.marlina@example.com', '081234567812', gen_random_uuid(), now(), now()),
+('Miko Hartanto', 'miko.hartanto@example.com', '081234567813', gen_random_uuid(), now(), now()),
+('Nina Kartika', 'nina.kartika@example.com', '081234567814', gen_random_uuid(), now(), now()),
+('Oscar Wijanarko', 'oscar.wijanarko@example.com', '081234567815', gen_random_uuid(), now(), now()),
+('Putri Anggraini', 'putri.anggraini@example.com', '081234567816', gen_random_uuid(), now(), now()),
+('Qory Rahma', 'qory.rahma@example.com', '081234567817', gen_random_uuid(), now(), now()),
+('Raka Putra', 'raka.putra@example.com', '081234567818', gen_random_uuid(), now(), now()),
+('Sinta Ayuningtyas', 'sinta.ayuningtyas@example.com', '081234567819', gen_random_uuid(), now(), now()),
+('Taufik Hidayat', 'taufik.hidayat@example.com', '081234567820', gen_random_uuid(), now(), now());

@@ -1,0 +1,22 @@
+INSERT INTO public.city (name, secure_id, created_at, updated_at)
+VALUES 
+('Jakarta', gen_random_uuid(), now(), now()),
+('Bandung', gen_random_uuid(), now(), now()),
+('Surabaya', gen_random_uuid(), now(), now()),
+('Medan', gen_random_uuid(), now(), now()),
+('Semarang', gen_random_uuid(), now(), now()),
+('Yogyakarta', gen_random_uuid(), now(), now()),
+('Palembang', gen_random_uuid(), now(), now()),
+('Makassar', gen_random_uuid(), now(), now()),
+('Denpasar', gen_random_uuid(), now(), now()),
+('Pekanbaru', gen_random_uuid(), now(), now()),
+('Balikpapan', gen_random_uuid(), now(), now()),
+('Malang', gen_random_uuid(), now(), now()),
+('Manado', gen_random_uuid(), now(), now()),
+('Batam', gen_random_uuid(), now(), now()),
+('Pontianak', gen_random_uuid(), now(), now()),
+('Padang', gen_random_uuid(), now(), now()),
+('Banjarmasin', gen_random_uuid(), now(), now()),
+('Bogor', gen_random_uuid(), now(), now()),
+('Cirebon', gen_random_uuid(), now(), now()),
+('Kupang', gen_random_uuid(), now(), now());

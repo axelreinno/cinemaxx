@@ -1,0 +1,22 @@
+INSERT INTO public.genre (genre, secure_id, created_at, updated_at)
+VALUES 
+('Action', gen_random_uuid(), now(), now()),
+('Adventure', gen_random_uuid(), now(), now()),
+('Animation', gen_random_uuid(), now(), now()),
+('Biography', gen_random_uuid(), now(), now()),
+('Comedy', gen_random_uuid(), now(), now()),
+('Crime', gen_random_uuid(), now(), now()),
+('Documentary', gen_random_uuid(), now(), now()),
+('Drama', gen_random_uuid(), now(), now()),
+('Family', gen_random_uuid(), now(), now()),
+('Fantasy', gen_random_uuid(), now(), now()),
+('History', gen_random_uuid(), now(), now()),
+('Horror', gen_random_uuid(), now(), now()),
+('Musical', gen_random_uuid(), now(), now()),
+('Mystery', gen_random_uuid(), now(), now()),
+('Romance', gen_random_uuid(), now(), now()),
+('Sci-Fi', gen_random_uuid(), now(), now()),
+('Sport', gen_random_uuid(), now(), now()),
+('Thriller', gen_random_uuid(), now(), now()),
+('War', gen_random_uuid(), now(), now()),
+('Western', gen_random_uuid(), now(), now());
