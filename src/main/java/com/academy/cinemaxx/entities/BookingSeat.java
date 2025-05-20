@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "booking_seat", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "booking_seat_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE booking_seat SET deleted = true WHERE id = ?")
 public class BookingSeat extends BaseEntity {

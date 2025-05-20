@@ -1,0 +1,22 @@
+INSERT INTO public.cinema (name, address, city_id, secure_id, created_at, updated_at)
+VALUES 
+('XXI Plaza Indonesia', 'Jl. MH Thamrin No.28-30, Jakarta', 1, gen_random_uuid(), now(), now()),
+('CGV Paris Van Java', 'Paris Van Java Mall, Bandung', 2, gen_random_uuid(), now(), now()),
+('XXI Tunjungan Plaza', 'Tunjungan Plaza Lt. 5, Surabaya', 3, gen_random_uuid(), now(), now()),
+('XXI Sun Plaza', 'Jl. KH Zainul Arifin, Medan', 4, gen_random_uuid(), now(), now()),
+('Cinepolis DP Mall', 'Jl. Pemuda, Semarang', 5, gen_random_uuid(), now(), now()),
+('XXI Ambarukmo Plaza', 'Plaza Ambarukmo, Yogyakarta', 6, gen_random_uuid(), now(), now()),
+('XXI Palembang Icon', 'Palembang Icon Mall, Palembang', 7, gen_random_uuid(), now(), now()),
+('CGV Panakkukang', 'Mall Panakkukang, Makassar', 8, gen_random_uuid(), now(), now()),
+('XXI Level 21 Mall', 'Jl. Teuku Umar No.1, Denpasar', 9, gen_random_uuid(), now(), now()),
+('XXI SKA Mall', 'Jl. Soekarno-Hatta, Pekanbaru', 10, gen_random_uuid(), now(), now()),
+('XXI Kota Kasablanka', 'Mall Kota Kasablanka, Jakarta', 1, gen_random_uuid(), now(), now()),
+('CGV 23 Paskal', '23 Paskal Shopping Center, Bandung', 2, gen_random_uuid(), now(), now()),
+('XXI Grand City', 'Grand City Mall, Surabaya', 3, gen_random_uuid(), now(), now()),
+('XXI Centre Point', 'Centre Point Mall, Medan', 4, gen_random_uuid(), now(), now()),
+('Cinepolis Java Mall', 'Java Mall, Semarang', 5, gen_random_uuid(), now(), now()),
+('XXI Jogja City Mall', 'Jogja City Mall, Yogyakarta', 6, gen_random_uuid(), now(), now()),
+('XXI Palembang Square', 'Palembang Square Mall, Palembang', 7, gen_random_uuid(), now(), now()),
+('XXI Trans Studio', 'Trans Studio Makassar, Makassar', 8, gen_random_uuid(), now(), now()),
+('Cinepolis Park 23', 'Park 23 Mall, Denpasar', 9, gen_random_uuid(), now(), now()),
+('XXI Ciputra Seraya', 'Ciputra Seraya Mall, Pekanbaru', 10, gen_random_uuid(), now(), now());

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "seat_element", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "seat_element_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE seat_element SET deleted = true WHERE id = ?")
 public class SeatElement extends BaseEntity {

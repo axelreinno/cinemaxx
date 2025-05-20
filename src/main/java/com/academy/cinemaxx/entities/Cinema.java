@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Data
 @Entity
 @Table(name = "cinema", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "cinema_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE cinema SET deleted = true WHERE id = ?")
 public class Cinema extends BaseEntity {

@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "genre", indexes = {
-        @Index(name = "uk_secure_id", columnList = "secure_id")
+        @Index(name = "genre_secure_id", columnList = "secure_id")
 })
 @SQLDelete(sql = "UPDATE genre SET deleted = true WHERE id = ?")
 public class Genre extends BaseEntity {
