@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.dtos;
 
 public record CinemaDTO (
-        String secureId,
+        String id,
         String name,
         String address,
         CityDTO city
