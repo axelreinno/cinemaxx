@@ -6,6 +6,7 @@ import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.repositories.MovieRepository;
 import com.academy.cinemaxx.services.MovieService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,5 +72,21 @@ public class MovieServiceImpl implements MovieService {
                                 .map(Genre::getGenre)
                                 .collect(Collectors.toList())
                 )).collect(Collectors.toList());
+    }
+
+    public MovieDTO getMovieDetailBySecureId(String secureId) {
+        Movie movie = movieRepository.findBySecureId(secureId)
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
+        return new MovieDTO(
+                movie.getSecureId(),
+                movie.getTitle(),
+                movie.getDescription(),
+                movie.getDurationMin(),
+                movie.getAgeRating(),
+                movie.getReleaseDate(),
+                movie.getGenres().stream()
+                        .map(Genre::getGenre)
+                        .collect(Collectors.toList())
+        );
     }
 }

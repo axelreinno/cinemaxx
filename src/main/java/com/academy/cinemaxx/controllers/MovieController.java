@@ -6,10 +6,7 @@ import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,11 @@ public class MovieController {
     @GetMapping("/search")
     public ResponseEntity<List<MovieDTO>> searchNowPlayingMoviesByTitleAndCityCode(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
         return ResponseEntity.ok(movieService.findNowPlayingMoviesByTitleAndCityCode(name, cityCode));
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<MovieDTO> getMovieDetail(@PathVariable String id) {
+        MovieDTO movie = movieService.getMovieDetailBySecureId(id);
+        return ResponseEntity.ok(movie);
     }
 }
