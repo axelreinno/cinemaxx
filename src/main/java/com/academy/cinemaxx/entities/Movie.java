@@ -5,7 +5,6 @@ import com.academy.cinemaxx.enums.MovieStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +21,9 @@ public class Movie extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String secureId = UUID.randomUUID().toString();
+
     @Column(nullable = false)
     private String title;
 
@@ -37,12 +39,6 @@ public class Movie extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private AgeRating ageRating;
-
-    @Enumerated(EnumType.STRING)
-    private MovieStatus status;
-
-    @OneToMany(mappedBy = "movie")
-    private List<MovieRating> ratings;
 
     @ManyToMany
     @JoinTable(name = "movie_genre",

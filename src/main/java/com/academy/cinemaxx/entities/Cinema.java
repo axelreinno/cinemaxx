@@ -3,7 +3,8 @@ package com.academy.cinemaxx.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+
+import java.util.UUID;
 
 @Data
 @Entity
@@ -15,6 +16,9 @@ public class Cinema extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String secureId = UUID.randomUUID().toString();
 
     @Column(nullable = false)
     private String name;
