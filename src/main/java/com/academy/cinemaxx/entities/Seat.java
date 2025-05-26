@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Table(name = "seat", indexes = {
@@ -15,6 +17,9 @@ public class Seat extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String secureId = UUID.randomUUID().toString();
 
     @ManyToOne
     @JoinColumn(name = "hall_id", nullable = false)

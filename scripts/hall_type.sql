@@ -1,12 +1,12 @@
-INSERT INTO public.hall_type ("type", secure_id, created_at, updated_at)
+INSERT INTO public.hall_type ("type", code, created_at, updated_at)
 VALUES
-('Regular', gen_random_uuid(), now(), now()),
-('IMAX', gen_random_uuid(), now(), now()),
-('4DX', gen_random_uuid(), now(), now()),
-('Dolby Atmos', gen_random_uuid(), now(), now()),
-('Gold Class', gen_random_uuid(), now(), now()),
-('Satin Class', gen_random_uuid(), now(), now()),
-('Velvet Class', gen_random_uuid(), now(), now()),
-('Sweetbox', gen_random_uuid(), now(), now()),
-('MX4D', gen_random_uuid(), now(), now()),
-('Ultra XD', gen_random_uuid(), now(), now());
+('Regular', 'REGULAR', now(), now()),
+('IMAX', 'IMAX', now(), now()),
+('4DX', '4DX', now(), now()),
+('Dolby Atmos', 'DOLBY', now(), now()),
+('Gold Class', 'GOLD_CLASS', now(), now()),
+('Satin Class', 'SATIN_CLASS', now(), now()),
+('Velvet Class', 'VELVET_CLASS', now(), now()),
+('Sweetbox', 'SWEETBOX', now(), now()),
+('MX4D', 'MX4D', now(), now()),
+('Ultra XD', 'ULTRAXD', now(), now());

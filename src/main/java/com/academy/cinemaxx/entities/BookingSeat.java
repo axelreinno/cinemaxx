@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -16,6 +17,9 @@ public class BookingSeat extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String secureId = UUID.randomUUID().toString();
 
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)

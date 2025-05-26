@@ -22,4 +22,4 @@ spring:
         order_inserts: true
     show-sql: true
 server:
-  port: 8081
+  port: 8080
