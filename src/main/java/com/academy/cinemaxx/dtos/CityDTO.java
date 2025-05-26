@@ -1,4 +1,6 @@
 package com.academy.cinemaxx.dtos;
 
-public class CityDTO {
-}
+public record CityDTO (
+        String code,
+        String name
+) {}
