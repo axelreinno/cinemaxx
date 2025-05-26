@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
     List<Cinema> findByCity_CodeIgnoreCase(String code);
+    List<Cinema> findByNameContainingIgnoreCaseAndCity_CodeIgnoreCase(String name, String code);
 }

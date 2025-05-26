@@ -21,9 +21,17 @@ public class CinemaServiceImpl implements CinemaService {
         this.cinemaRepository = cinemaRepository;
     }
 
-    public List<CinemaDTO> getCinemasByCityCode(String code) {
+    public List<CinemaDTO> getCinemasByCityCode(String cityCode) {
         return cinemaRepository
-                .findByCity_CodeIgnoreCase(code)
+                .findByCity_CodeIgnoreCase(cityCode)
+                .stream()
+                .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
+                .collect(Collectors.toList());
+    }
+
+    public List<CinemaDTO> searchCinemasByNameAndCityCode(String name, String cityCode) {
+        return cinemaRepository
+                .findByNameContainingIgnoreCaseAndCity_CodeIgnoreCase(name, cityCode)
                 .stream()
                 .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
                 .collect(Collectors.toList());
