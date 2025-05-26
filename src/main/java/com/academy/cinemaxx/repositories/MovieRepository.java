@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Cinema, Long> {
-    List<Cinema> findByNameContainingIgnoreCaseAndCity_CodeIgnoreCase(String name, String code);
+public interface MovieRepository extends JpaRepository<Movie, Long> {
+    Optional<Movie> findBySecureId(String secureId);
 
     @Query("""
         SELECT DISTINCT s.movie FROM Showtime s

@@ -9,4 +9,5 @@ public interface MovieService {
     public List<MovieDTO> getNowPlayingMovies(String cityCode);
     public List<MovieDTO> getUpcomingMovies(String cityCode);
     public List<MovieDTO> findNowPlayingMoviesByTitleAndCityCode(String name, String cityCode);
+    public MovieDTO getMovieDetailBySecureId(String secureId);
 }
