@@ -23,4 +23,9 @@ public class CinemaController {
     public ResponseEntity<List<CinemaDTO>> getCinemasByCityCode(@PathVariable(name = "code") String code) {
         return ResponseEntity.ok(cinemaService.getCinemasByCityCode(code));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CinemaDTO>> searchCinema(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
+        return ResponseEntity.ok(cinemaService.searchCinemasByNameAndCityCode(name, cityCode));
+    }
 }
