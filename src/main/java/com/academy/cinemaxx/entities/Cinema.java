@@ -6,7 +6,6 @@ import org.hibernate.annotations.SQLDelete;
 
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "cinema", indexes = {
         @Index(name = "cinema_secure_id", columnList = "secure_id")
@@ -29,4 +28,44 @@ public class Cinema extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSecureId() {
+        return secureId;
+    }
+
+    public void setSecureId(String secureId) {
+        this.secureId = secureId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 }

@@ -5,6 +5,7 @@ import com.academy.cinemaxx.entities.City;
 import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class CityController {
     }
 
     @GetMapping
-    public List<CityDTO> getAllCities() {
-        return cityService.getAllCities();
+    public ResponseEntity<List<CityDTO>> getAllCities() {
+        return ResponseEntity.ok(cityService.getAllCities());
     }
 }

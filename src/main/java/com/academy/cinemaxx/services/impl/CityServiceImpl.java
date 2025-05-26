@@ -19,6 +19,7 @@ public class CityServiceImpl implements CityService {
         this.cityRepository = cityRepository;
     }
 
+
     public List<CityDTO> getAllCities() {
         return cityRepository
                 .findAll()
