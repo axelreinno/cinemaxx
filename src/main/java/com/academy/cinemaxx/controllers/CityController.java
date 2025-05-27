@@ -1,6 +1,7 @@
 package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.CityDTO;
+import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.entities.City;
 import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CityService;
@@ -23,7 +24,7 @@ public class CityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CityDTO>> getAllCities() {
-        return ResponseEntity.ok(cityService.getAllCities());
+    public ResponseEntity<ResponseDTO<List<CityDTO>>> getAllCities() {
+        return ResponseEntity.ok(ResponseDTO.success(cityService.getAllCities()));
     }
 }
