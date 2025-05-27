@@ -1,6 +1,7 @@
 package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.CinemaDTO;
+import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.entities.Cinema;
 import com.academy.cinemaxx.services.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ public class CinemaController {
     }
 
     @GetMapping("/by-city-code/{code}")
-    public ResponseEntity<List<CinemaDTO>> getCinemasByCityCode(@PathVariable(name = "code") String code) {
-        return ResponseEntity.ok(cinemaService.getCinemasByCityCode(code));
+    public ResponseEntity<ResponseDTO<List<CinemaDTO>>> getCinemasByCityCode(@PathVariable(name = "code") String code) {
+        return ResponseEntity.ok(ResponseDTO.success(cinemaService.getCinemasByCityCode(code)));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<CinemaDTO>> searchCinema(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
-        return ResponseEntity.ok(cinemaService.searchCinemasByNameAndCityCode(name, cityCode));
+    public ResponseEntity<ResponseDTO<List<CinemaDTO>>> searchCinema(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
+        return ResponseEntity.ok(ResponseDTO.success(cinemaService.searchCinemasByNameAndCityCode(name, cityCode)));
     }
 }

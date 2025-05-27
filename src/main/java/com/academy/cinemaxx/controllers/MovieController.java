@@ -2,6 +2,7 @@ package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.CinemaDTO;
 import com.academy.cinemaxx.dtos.MovieDTO;
+import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +22,26 @@ public class MovieController {
     }
 
     @GetMapping("/now-playing")
-    public ResponseEntity<List<MovieDTO>> getNowPlayingMovies(@RequestParam("cityCode") String cityCode) {
+    public ResponseEntity<ResponseDTO<List<MovieDTO>>> getNowPlayingMovies(@RequestParam("cityCode") String cityCode) {
         List<MovieDTO> movies = movieService.getNowPlayingMovies(cityCode);
-        return ResponseEntity.ok(movies);
+        return ResponseEntity.ok(ResponseDTO.success(movies));
     }
 
     @GetMapping("/upcoming")
-    public ResponseEntity<List<MovieDTO>> getUpcomingMovies(@RequestParam("cityCode") String cityCode) {
+    public ResponseEntity<ResponseDTO<List<MovieDTO>>> getUpcomingMovies(@RequestParam("cityCode") String cityCode) {
         List<MovieDTO> movies = movieService.getUpcomingMovies(cityCode);
-        return ResponseEntity.ok(movies);
+        return ResponseEntity.ok(ResponseDTO.success(movies));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<MovieDTO>> searchNowPlayingMoviesByTitleAndCityCode(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
-        return ResponseEntity.ok(movieService.findNowPlayingMoviesByTitleAndCityCode(name, cityCode));
+    public ResponseEntity<ResponseDTO<List<MovieDTO>>> searchNowPlayingMoviesByTitleAndCityCode(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
+        List<MovieDTO> movies = movieService.findNowPlayingMoviesByTitleAndCityCode(name, cityCode);
+        return ResponseEntity.ok(ResponseDTO.success(movies));
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<MovieDTO> getMovieDetail(@PathVariable String id) {
+    public ResponseEntity<ResponseDTO<MovieDTO>> getMovieDetail(@PathVariable String id) {
         MovieDTO movie = movieService.getMovieDetailBySecureId(id);
-        return ResponseEntity.ok(movie);
+        return ResponseEntity.ok(ResponseDTO.success(movie));
     }
 }

@@ -2,6 +2,7 @@ package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.MovieDTO;
 import com.academy.cinemaxx.dtos.MovieShowtimeDTO;
+import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.entities.Showtime;
 import com.academy.cinemaxx.services.MovieService;
 import com.academy.cinemaxx.services.ShowtimeService;
@@ -24,12 +25,12 @@ public class ShowtimeController {
     }
 
     @GetMapping("/movie/{secureId}")
-    public ResponseEntity<List<MovieShowtimeDTO>> getShowtimeByMovieAndDate(
+    public ResponseEntity<ResponseDTO<List<MovieShowtimeDTO>>> getShowtimeByMovieAndDate(
             @PathVariable String secureId,
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
         List<MovieShowtimeDTO> showtimes = showtimeService.getShowtimeByMovieAndDate(secureId, date);
-        return ResponseEntity.ok(showtimes);
+        return ResponseEntity.ok(ResponseDTO.success(showtimes));
     }
 
 }
