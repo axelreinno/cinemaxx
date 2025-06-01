@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cinema")
+@RequestMapping("/v1")
 public class CinemaController {
     private final CinemaService cinemaService;
 
@@ -20,13 +20,11 @@ public class CinemaController {
         this.cinemaService = cinemaService;
     }
 
-    @GetMapping("/by-city-code/{code}")
-    public ResponseEntity<ResponseDTO<List<CinemaDTO>>> getCinemasByCityCode(@PathVariable(name = "code") String code) {
-        return ResponseEntity.ok(ResponseDTO.success(cinemaService.getCinemasByCityCode(code)));
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<ResponseDTO<List<CinemaDTO>>> searchCinema(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
+    @GetMapping("/cinema")
+    public ResponseEntity<ResponseDTO<List<CinemaDTO>>> searchCinema(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "cityCode") String cityCode
+    ) {
         return ResponseEntity.ok(ResponseDTO.success(cinemaService.searchCinemasByNameAndCityCode(name, cityCode)));
     }
 }
