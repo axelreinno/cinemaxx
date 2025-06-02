@@ -59,7 +59,7 @@ public class CityController {
     }
 
     @GetMapping("/city/{code}/movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> searchNowPlayingMoviesByTitleAndCityCode(
+    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getMovies(
             @PathVariable("code") String cityCode,
             @RequestParam(name = "name", required = false) String name
     ) {
@@ -67,18 +67,18 @@ public class CityController {
         return ResponseEntity.ok(ResponseDTO.success(movies));
     }
 
-    @GetMapping("/city/{code}/cinema-list")
-    public ResponseEntity<ResponseDTO<List<CinemaResponseDTO>>> getCinemasByCityCode(
-            @PathVariable(name = "code") String code
-    ) {
-        return ResponseEntity.ok(ResponseDTO.success(cinemaService.getCinemasByCityCode(code)));
-    }
-
     @GetMapping("/city/{code}/cinema")
-    public ResponseEntity<ResponseDTO<List<CinemaResponseDTO>>> searchCinema(
+    public ResponseEntity<PaginationResponseDTO<CinemaResponseDTO>> getCinemas(
             @PathVariable(name = "code") String cityCode,
-            @RequestParam(name = "name", required = false) String name
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int limit,
+            @ValidSortField(allowed = {"name"}) @RequestParam(defaultValue = "name") String sort,
+            @ValidSortDirection @RequestParam(defaultValue = "asc") String direction
     ) {
-        return ResponseEntity.ok(ResponseDTO.success(cinemaService.searchCinemasByNameAndCityCode(name, cityCode)));
+        SortDirection sortDirection = SortDirection.from(direction);
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection.toSpringSortDirection(), sort));
+        PaginationResponseDTO<CinemaResponseDTO> pagination = cinemaService.getCinemas(name, cityCode, pageable);
+        return ResponseEntity.ok(pagination);
     }
 }
