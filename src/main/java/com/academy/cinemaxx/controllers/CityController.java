@@ -1,13 +1,10 @@
 package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.CinemaDTO;
-import com.academy.cinemaxx.dtos.CityDTO;
+import com.academy.cinemaxx.dtos.CityResponseDTO;
 import com.academy.cinemaxx.dtos.ResponseDTO;
-import com.academy.cinemaxx.entities.City;
-import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CinemaService;
 import com.academy.cinemaxx.services.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +22,7 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public ResponseEntity<ResponseDTO<List<CityDTO>>> getAllCities() {
+    public ResponseEntity<ResponseDTO<List<CityResponseDTO>>> getAllCities() {
         return ResponseEntity.ok(ResponseDTO.success(cityService.getAllCities()));
     }
 

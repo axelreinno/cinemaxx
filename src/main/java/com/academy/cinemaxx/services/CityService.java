@@ -1,9 +1,9 @@
 package com.academy.cinemaxx.services;
 
-import com.academy.cinemaxx.dtos.CityDTO;
+import com.academy.cinemaxx.dtos.CityResponseDTO;
 
 import java.util.List;
 
 public interface CityService {
-    public List<CityDTO> getAllCities();
+    public List<CityResponseDTO> getAllCities();
 }
