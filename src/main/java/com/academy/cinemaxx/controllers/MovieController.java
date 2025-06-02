@@ -7,8 +7,13 @@ import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.MovieService;
 import com.academy.cinemaxx.services.ShowtimeService;
+import com.academy.cinemaxx.validators.annotations.ValidEpochDayFromToday;
 import com.academy.cinemaxx.validators.annotations.ValidSortDirection;
 import com.academy.cinemaxx.validators.annotations.ValidSortField;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,11 +57,13 @@ public class MovieController {
     }
 
     @GetMapping("/movie/{id}/showtime")
-    public ResponseEntity<ResponseDTO<List<MovieShowtimeResponseDTO>>> getShowtimeByMovieAndDate(
-            @PathVariable String secureId,
-            @RequestParam("date") LocalDate date
+    public ResponseEntity<ResponseDTO<List<MovieShowtimeResponseDTO>>> getShowtime(
+            @PathVariable String id,
+            @RequestParam
+            @ValidEpochDayFromToday
+            Long date
     ) {
-        List<MovieShowtimeResponseDTO> showtimes = showtimeService.getShowtimeByMovieAndDate(secureId, date);
-        return ResponseEntity.ok(ResponseDTO.success(showtimes));
+        List<MovieShowtimeResponseDTO> showtime = showtimeService.getShowtime(id, date);
+        return ResponseEntity.ok(ResponseDTO.success(showtime));
     }
 }
