@@ -6,7 +6,6 @@ import com.academy.cinemaxx.dtos.ShowtimeResponseDTO;
 import com.academy.cinemaxx.entities.Showtime;
 import com.academy.cinemaxx.repositories.ShowtimeRepository;
 import com.academy.cinemaxx.services.ShowtimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 public class ShowtimeServiceImpl implements ShowtimeService {
     private final ShowtimeRepository showtimeRepository;
 
-    @Autowired
     public ShowtimeServiceImpl(ShowtimeRepository showtimeRepository) {
         this.showtimeRepository = showtimeRepository;
     }

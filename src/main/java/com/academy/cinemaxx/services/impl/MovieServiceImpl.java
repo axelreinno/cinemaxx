@@ -6,7 +6,6 @@ import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.repositories.MovieRepository;
 import com.academy.cinemaxx.services.MovieService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
-    @Autowired
     public MovieServiceImpl(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
