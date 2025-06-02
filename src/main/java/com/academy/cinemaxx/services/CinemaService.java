@@ -1,11 +1,10 @@
 package com.academy.cinemaxx.services;
 
-import com.academy.cinemaxx.dtos.CinemaDTO;
-import com.academy.cinemaxx.entities.Cinema;
+import com.academy.cinemaxx.dtos.CinemaResponseDTO;
 
 import java.util.List;
 
 public interface CinemaService {
-    public List<CinemaDTO> getCinemasByCityCode(String cityCode);
-    public List<CinemaDTO> searchCinemasByNameAndCityCode(String name, String cityCode);
+    public List<CinemaResponseDTO> getCinemasByCityCode(String cityCode);
+    public List<CinemaResponseDTO> searchCinemasByNameAndCityCode(String name, String cityCode);
 }
