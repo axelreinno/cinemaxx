@@ -5,7 +5,6 @@ import com.academy.cinemaxx.dtos.MovieShowtimeResponseDTO;
 import com.academy.cinemaxx.dtos.ResponseDTO;
 import com.academy.cinemaxx.services.MovieService;
 import com.academy.cinemaxx.services.ShowtimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,6 @@ public class MovieController {
     private final MovieService movieService;
     private final ShowtimeService showtimeService;
 
-    @Autowired
     public MovieController(MovieService movieService, ShowtimeService showtimeService) {
         this.movieService = movieService;
         this.showtimeService = showtimeService;
