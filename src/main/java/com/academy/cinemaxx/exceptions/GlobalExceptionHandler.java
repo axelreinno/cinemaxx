@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO<String>> handleEntityNotFound(EntityNotFoundException ex) {
+    public ResponseEntity<ErrorResponseDTO<Object>> handleEntityNotFound(EntityNotFoundException ex) {
         log.warn("LOG: Entity not found: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ErrorResponseDTO.error(ex.getMessage()));
@@ -44,12 +45,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDTO<Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
         log.warn("LOG: Illegal Argument: {}", ex.getMessage());
-        return ResponseEntity.badRequest().body(ErrorResponseDTO.error("Bad Request: " + ex.getMessage()));
+        return ResponseEntity.badRequest().body(ErrorResponseDTO.error(ex.getMessage()));
     }
 
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponseDTO<Object>> handleMissingParams(MissingServletRequestParameterException ex) {
+        return ResponseEntity.badRequest().body(ErrorResponseDTO.error(ex.getParameterName() + " is required"));
+    }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO<String>> handleGenericException(Exception ex) {
+    public ResponseEntity<ErrorResponseDTO<Object>> handleGenericException(Exception ex) {
         log.error("LOG: Unhandled exception: {}", ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponseDTO.error("An unexpected error occurred"));

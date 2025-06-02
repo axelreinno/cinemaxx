@@ -1,5 +1,6 @@
 package com.academy.cinemaxx.repositories;
 
+import com.academy.cinemaxx.projections.ShowtimeProjection;
 import com.academy.cinemaxx.entities.Showtime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,16 +13,22 @@ import java.util.List;
 @Repository
 public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
     @Query("""
-        SELECT s FROM Showtime s
-        JOIN FETCH s.hall h
-        JOIN FETCH h.cinema c
-        JOIN FETCH c.city
-        WHERE s.movie.secureId = :secureId
+        SELECT 
+            c.name AS cinemaName,
+            h.name AS hallName,
+            s.startTime AS startTime,
+            s.endTime AS endTime
+        FROM Showtime s
+        JOIN s.hall h
+        JOIN h.cinema c
+        JOIN c.city ci
+        JOIN s.movie m
+        WHERE m.secureId = :id
         AND DATE(s.startTime) = :date
         ORDER BY c.name, h.name, s.startTime
     """)
-    List<Showtime> findByMovieSecureIdAndDate(
-            @Param("secureId") String secureId,
+    List<ShowtimeProjection> findShowtimeByMovieId(
+            @Param("id") String id,
             @Param("date") LocalDate date
     );
 }

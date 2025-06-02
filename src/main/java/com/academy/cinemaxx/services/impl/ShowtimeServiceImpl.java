@@ -1,11 +1,10 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.HallShowtimeResponseDTO;
-import com.academy.cinemaxx.dtos.MovieShowtimeResponseDTO;
-import com.academy.cinemaxx.dtos.ShowtimeResponseDTO;
-import com.academy.cinemaxx.entities.Showtime;
+import com.academy.cinemaxx.dtos.*;
+import com.academy.cinemaxx.projections.ShowtimeProjection;
 import com.academy.cinemaxx.repositories.ShowtimeRepository;
 import com.academy.cinemaxx.services.ShowtimeService;
+import com.academy.cinemaxx.utils.DateTimeUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,17 +20,23 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         this.showtimeRepository = showtimeRepository;
     }
 
-    public List<MovieShowtimeResponseDTO> getShowtimeByMovieAndDate(String secureId, LocalDate date) {
-        List<Showtime> showtimes = showtimeRepository.findByMovieSecureIdAndDate(secureId, date);
+    public List<MovieShowtimeResponseDTO> getShowtime(String id, Long date) {
+        LocalDate currentDate = DateTimeUtils.fromEpochDay(date);
+        List<ShowtimeProjection> projections = showtimeRepository.findShowtimeByMovieId(id, currentDate);
 
-        List<MovieShowtimeResponseDTO> result = showtimes.stream()
+        return projections
+                .stream()
                 .collect(Collectors.groupingBy(
-                        s -> s.getHall().getCinema().getName(), // Group by Cinema Name
+                        ShowtimeProjection::getCinemaName,
                         LinkedHashMap::new,
                         Collectors.groupingBy(
-                                s -> s.getHall().getName(),          // Group by Hall Name
+                                ShowtimeProjection::getHallName,
                                 Collectors.mapping(
-                                        s -> new ShowtimeResponseDTO(s.getStartTime()),
+                                        showtime -> {
+                                            long startTime = DateTimeUtils.toEpochSecond(showtime.getStartTime());
+                                            long endTime = DateTimeUtils.toEpochSecond(showtime.getEndTime());
+                                            return new ShowtimeResponseDTO(startTime, endTime);
+                                        },
                                         Collectors.toList()
                                 )
                         )
@@ -39,15 +44,11 @@ public class ShowtimeServiceImpl implements ShowtimeService {
                 .entrySet().stream()
                 .map(cinemaEntry -> {
                     String cinemaName = cinemaEntry.getKey();
-
                     List<HallShowtimeResponseDTO> halls = cinemaEntry.getValue().entrySet().stream()
                             .map(hallEntry -> new HallShowtimeResponseDTO(hallEntry.getKey(), hallEntry.getValue()))
                             .collect(Collectors.toList());
-
                     return new MovieShowtimeResponseDTO(cinemaName, halls);
                 })
-                .collect(Collectors.toList());
-
-        return result;
+                .toList();
     }
 }
