@@ -1,5 +1,6 @@
 package com.academy.cinemaxx.controllers;
 
+import com.academy.cinemaxx.dtos.MovieRequestDTO;
 import com.academy.cinemaxx.dtos.MovieResponseDTO;
 import com.academy.cinemaxx.dtos.MovieShowtimeResponseDTO;
 import com.academy.cinemaxx.dtos.PaginationResponseDTO;
@@ -10,18 +11,15 @@ import com.academy.cinemaxx.services.ShowtimeService;
 import com.academy.cinemaxx.validators.annotations.ValidEpochDayFromToday;
 import com.academy.cinemaxx.validators.annotations.ValidSortDirection;
 import com.academy.cinemaxx.validators.annotations.ValidSortField;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Validated
@@ -65,5 +63,13 @@ public class MovieController {
     ) {
         List<MovieShowtimeResponseDTO> showtime = showtimeService.getShowtime(id, date);
         return ResponseEntity.ok(ResponseDTO.success(showtime));
+    }
+
+    @PostMapping("/movie")
+    public ResponseEntity<Boolean> createMovie(
+            @Valid @RequestBody MovieRequestDTO movieRequestDTO
+    ) {
+        movieService.createMovie(movieRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(true);
     }
 }
