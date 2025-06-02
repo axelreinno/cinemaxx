@@ -2,6 +2,8 @@ package com.academy.cinemaxx.repositories;
 
 import com.academy.cinemaxx.entities.Cinema;
 import com.academy.cinemaxx.entities.Movie;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,36 +16,33 @@ import java.util.Optional;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     Optional<Movie> findBySecureId(String secureId);
+    Page<Movie> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     @Query("""
         SELECT DISTINCT s.movie FROM Showtime s
         WHERE LOWER(s.hall.cinema.city.code) = LOWER(:cityCode)
-        AND :currentTime BETWEEN s.startTime AND s.endTime
-    """)
-    List<Movie> findNowPlayingMoviesByCityCode(@Param("cityCode") String cityCode, @Param("currentTime") LocalDateTime currentTime);
-
-    @Query("""
-        SELECT DISTINCT s.movie FROM Showtime s
-        WHERE LOWER(s.hall.cinema.city.code) = LOWER(:cityCode)
-        AND s.startTime > :currentTime
+        AND DATE(s.startTime) > DATE(:currentTime)
         AND s.movie.id NOT IN (
             SELECT s2.movie.id FROM Showtime s2
             WHERE LOWER(s2.hall.cinema.city.code) = LOWER(:cityCode)
-            AND :currentTime BETWEEN s2.startTime AND s2.endTime
+           AND DATE(s2.startTime) = DATE(:currentTime)
        )
     """)
-    List<Movie> findUpcomingMoviesByCityCode(@Param("cityCode") String cityCode, @Param("currentTime") LocalDateTime currentTime);
+    Page<Movie> findUpcomingMovies(
+            @Param("cityCode") String cityCode,
+            @Param("currentTime") LocalDateTime currentTime,
+            Pageable pageable
+    );
 
     @Query("""
         SELECT DISTINCT s.movie
         FROM Showtime s
-        WHERE LOWER(s.movie.title) LIKE LOWER(CONCAT('%', :title, '%'))
-        AND LOWER(s.hall.cinema.city.code) = LOWER(:cityCode)
-        AND :currentTime BETWEEN s.startTime AND s.endTime
+        WHERE LOWER(s.hall.cinema.city.code) = LOWER(:cityCode)
+        AND DATE(s.startTime) = DATE(:currentTime)
     """)
-    List<Movie> findNowPlayingMoviesByTitleAndCityCode(
-            @Param("title") String title,
+    Page<Movie> findNowPlayingMovies(
             @Param("cityCode") String cityCode,
-            @Param("currentTime") LocalDateTime currentTime
+            @Param("currentTime") LocalDateTime currentTime,
+            Pageable pageable
     );
 }

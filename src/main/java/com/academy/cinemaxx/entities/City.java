@@ -11,7 +11,7 @@ public class City extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(15)")
+    @Column(nullable = false, unique = true, columnDefinition = "varchar(15)")
     private String code;
 
     @Column(nullable = false, columnDefinition = "varchar(100)")

@@ -21,7 +21,7 @@ public class Hall extends BaseEntity {
     private String secureId = UUID.randomUUID().toString();
 
     @Column(nullable = false)
-    private String type;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)
@@ -59,12 +59,12 @@ public class Hall extends BaseEntity {
         this.secureId = secureId;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String type) {
+        this.name = type;
     }
 
     public Cinema getCinema() {

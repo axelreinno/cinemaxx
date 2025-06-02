@@ -29,7 +29,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
                         s -> s.getHall().getCinema().getName(), // Group by Cinema Name
                         LinkedHashMap::new,
                         Collectors.groupingBy(
-                                s -> s.getHall().getType(),          // Group by Hall Name
+                                s -> s.getHall().getName(),          // Group by Hall Name
                                 Collectors.mapping(
                                         s -> new ShowtimeResponseDTO(s.getStartTime()),
                                         Collectors.toList()

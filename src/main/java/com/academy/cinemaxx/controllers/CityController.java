@@ -11,10 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/v1")
 public class CityController {
@@ -43,34 +45,37 @@ public class CityController {
     }
 
     @GetMapping("/city/{code}/playing-movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getNowPlayingMovies(
-            @PathVariable("code") String cityCode
+    public ResponseEntity<PaginationResponseDTO<MovieResponseDTO>> getNowPlayingMovies(
+            @PathVariable("code") String cityCode,
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int limit,
+            @ValidSortField(allowed = {"movie.title","movie.ageRating","movie.releaseDate"}) @RequestParam(defaultValue = "movie.title") String sort,
+            @ValidSortDirection @RequestParam(defaultValue = "asc") String direction
     ) {
-        List<MovieResponseDTO> movies = movieService.getNowPlayingMovies(cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
+        SortDirection sortDirection = SortDirection.from(direction);
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection.toSpringSortDirection(), sort));
+        PaginationResponseDTO<MovieResponseDTO> pagination = movieService.getNowPlayingMovies(cityCode, pageable);
+        return ResponseEntity.ok(pagination);
     }
 
     @GetMapping("/city/{code}/upcoming-movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getUpcomingMovies(
-            @PathVariable("code") String cityCode
-    ) {
-        List<MovieResponseDTO> movies = movieService.getUpcomingMovies(cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
-    }
-
-    @GetMapping("/city/{code}/movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getMovies(
+    public ResponseEntity<PaginationResponseDTO<MovieResponseDTO>> getUpcomingMovies(
             @PathVariable("code") String cityCode,
-            @RequestParam(name = "name", required = false) String name
+            @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int limit,
+            @ValidSortField(allowed = {"movie.title","movie.ageRating","movie.releaseDate"}) @RequestParam(defaultValue = "movie.title") String sort,
+            @ValidSortDirection @RequestParam(defaultValue = "asc") String direction
     ) {
-        List<MovieResponseDTO> movies = movieService.findNowPlayingMoviesByTitleAndCityCode(name, cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
+        SortDirection sortDirection = SortDirection.from(direction);
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection.toSpringSortDirection(), sort));
+        PaginationResponseDTO<MovieResponseDTO> pagination = movieService.getUpcomingMovies(cityCode, pageable);
+        return ResponseEntity.ok(pagination);
     }
 
     @GetMapping("/city/{code}/cinema")
     public ResponseEntity<PaginationResponseDTO<CinemaResponseDTO>> getCinemas(
             @PathVariable(name = "code") String cityCode,
-            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(required = false) String name,
             @RequestParam(defaultValue = "0", required = false) int page,
             @RequestParam(defaultValue = "10", required = false) int limit,
             @ValidSortField(allowed = {"name"}) @RequestParam(defaultValue = "name") String sort,
