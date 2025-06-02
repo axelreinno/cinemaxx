@@ -30,6 +30,12 @@ public class Movie extends BaseEntity {
     @Column(columnDefinition = "int default 0")
     private int durationMin;
 
+    @Column(length = 512)
+    private String trailerUrl;
+
+    @Column(length = 512)
+    private String thumbnailUrl;
+
     private LocalDate releaseDate;
 
     private String director;
@@ -130,4 +136,21 @@ public class Movie extends BaseEntity {
     public void setShowtimes(List<Showtime> showtimes) {
         this.showtimes = showtimes;
     }
+
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
 }

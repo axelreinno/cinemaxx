@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
 @MappedSuperclass
 public abstract class BaseEntity  {
     @Column(columnDefinition = "boolean default false")
@@ -17,6 +16,7 @@ public abstract class BaseEntity  {
     @PrePersist
     protected void onCreate() {
         createdAt = updatedAt = LocalDateTime.now();
+        deleted = false;
     }
 
     @PreUpdate
@@ -24,4 +24,28 @@ public abstract class BaseEntity  {
         updatedAt = LocalDateTime.now();
     }
 
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
