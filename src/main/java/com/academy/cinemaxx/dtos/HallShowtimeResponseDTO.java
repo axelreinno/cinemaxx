@@ -2,7 +2,7 @@ package com.academy.cinemaxx.dtos;
 
 import java.util.List;
 
-public record HallShowtimeDTO(
+public record HallShowtimeResponseDTO(
         String name,
-        List<ShowtimeDTO> showtimes
+        List<ShowtimeResponseDTO> showtimes
 ) {}

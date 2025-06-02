@@ -1,10 +1,8 @@
 package com.academy.cinemaxx.services.impl;
 
 import com.academy.cinemaxx.dtos.CinemaDTO;
-import com.academy.cinemaxx.dtos.CityDTO;
-import com.academy.cinemaxx.entities.Cinema;
+import com.academy.cinemaxx.dtos.CityResponseDTO;
 import com.academy.cinemaxx.repositories.CinemaRepository;
-import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,7 @@ public class CinemaServiceImpl implements CinemaService {
         return cinemaRepository
                 .findByCity_CodeIgnoreCase(cityCode)
                 .stream()
-                .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
+                .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityResponseDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
                 .collect(Collectors.toList());
     }
 
@@ -33,7 +31,7 @@ public class CinemaServiceImpl implements CinemaService {
         return cinemaRepository
                 .findByNameContainingIgnoreCaseAndCity_CodeIgnoreCase(name, cityCode)
                 .stream()
-                .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
+                .map(cinema -> new CinemaDTO(cinema.getSecureId(), cinema.getName(), cinema.getAddress(), new CityResponseDTO(cinema.getCity().getCode(), cinema.getCity().getName())))
                 .collect(Collectors.toList());
     }
 }

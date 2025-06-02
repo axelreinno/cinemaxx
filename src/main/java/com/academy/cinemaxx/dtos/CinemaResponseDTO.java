@@ -4,5 +4,5 @@ public record CinemaDTO (
         String id,
         String name,
         String address,
-        CityDTO city
+        CityResponseDTO city
 ) {}

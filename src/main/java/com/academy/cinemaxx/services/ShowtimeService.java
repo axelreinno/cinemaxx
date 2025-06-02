@@ -1,11 +1,10 @@
 package com.academy.cinemaxx.services;
 
-import com.academy.cinemaxx.dtos.MovieShowtimeDTO;
-import com.academy.cinemaxx.entities.Showtime;
+import com.academy.cinemaxx.dtos.MovieShowtimeResponseDTO;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ShowtimeService {
-    public List<MovieShowtimeDTO> getShowtimeByMovieAndDate(String secureId, LocalDate date);
+    public List<MovieShowtimeResponseDTO> getShowtimeByMovieAndDate(String secureId, LocalDate date);
 }

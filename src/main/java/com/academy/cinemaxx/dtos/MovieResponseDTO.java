@@ -5,7 +5,7 @@ import com.academy.cinemaxx.enums.AgeRating;
 import java.time.LocalDate;
 import java.util.List;
 
-public record MovieDTO (
+public record MovieResponseDTO(
         String id,
         String title,
         String description,

@@ -1,7 +1,6 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.CityDTO;
-import com.academy.cinemaxx.entities.City;
+import com.academy.cinemaxx.dtos.CityResponseDTO;
 import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,11 @@ public class CityServiceImpl implements CityService {
     }
 
 
-    public List<CityDTO> getAllCities() {
+    public List<CityResponseDTO> getAllCities() {
         return cityRepository
                 .findAll()
                 .stream()
-                .map(city -> new CityDTO(city.getCode(), city.getName()))
+                .map(city -> new CityResponseDTO(city.getCode(), city.getName()))
                 .collect(Collectors.toList());
     }
 }

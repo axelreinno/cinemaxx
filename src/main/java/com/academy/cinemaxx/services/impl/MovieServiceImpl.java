@@ -1,9 +1,8 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.MovieDTO;
+import com.academy.cinemaxx.dtos.MovieResponseDTO;
 import com.academy.cinemaxx.entities.Genre;
 import com.academy.cinemaxx.entities.Movie;
-import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.repositories.MovieRepository;
 import com.academy.cinemaxx.services.MovieService;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,11 +22,11 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<MovieDTO> getNowPlayingMovies(String cityCode) {
+    public List<MovieResponseDTO> getNowPlayingMovies(String cityCode) {
         LocalDateTime now = LocalDateTime.now();
         return movieRepository
                 .findNowPlayingMoviesByCityCode(cityCode, now)
-                .stream().map(movie -> new MovieDTO(
+                .stream().map(movie -> new MovieResponseDTO(
                         movie.getSecureId(),
                         movie.getTitle(),
                         movie.getDescription(),
@@ -40,11 +39,11 @@ public class MovieServiceImpl implements MovieService {
                 )).collect(Collectors.toList());
     }
 
-    public List<MovieDTO> getUpcomingMovies(String cityCode) {
+    public List<MovieResponseDTO> getUpcomingMovies(String cityCode) {
         LocalDateTime now = LocalDateTime.now();
         return movieRepository
                 .findUpcomingMoviesByCityCode(cityCode, now)
-                .stream().map(movie -> new MovieDTO(
+                .stream().map(movie -> new MovieResponseDTO(
                         movie.getSecureId(),
                         movie.getTitle(),
                         movie.getDescription(),
@@ -57,11 +56,11 @@ public class MovieServiceImpl implements MovieService {
                 )).collect(Collectors.toList());
     }
 
-    public List<MovieDTO> findNowPlayingMoviesByTitleAndCityCode(String name, String cityCode) {
+    public List<MovieResponseDTO> findNowPlayingMoviesByTitleAndCityCode(String name, String cityCode) {
         LocalDateTime now = LocalDateTime.now();
         return movieRepository
                 .findNowPlayingMoviesByTitleAndCityCode(name, cityCode, now)
-                .stream().map(movie -> new MovieDTO(
+                .stream().map(movie -> new MovieResponseDTO(
                         movie.getSecureId(),
                         movie.getTitle(),
                         movie.getDescription(),
@@ -74,10 +73,10 @@ public class MovieServiceImpl implements MovieService {
                 )).collect(Collectors.toList());
     }
 
-    public MovieDTO getMovieDetailBySecureId(String secureId) {
+    public MovieResponseDTO getMovieDetailBySecureId(String secureId) {
         Movie movie = movieRepository.findBySecureId(secureId)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
-        return new MovieDTO(
+        return new MovieResponseDTO(
                 movie.getSecureId(),
                 movie.getTitle(),
                 movie.getDescription(),
