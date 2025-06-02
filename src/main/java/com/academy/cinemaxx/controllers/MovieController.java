@@ -24,24 +24,6 @@ public class MovieController {
         this.showtimeService = showtimeService;
     }
 
-    @GetMapping("/now-playing-movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getNowPlayingMovies(@RequestParam("cityCode") String cityCode) {
-        List<MovieResponseDTO> movies = movieService.getNowPlayingMovies(cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
-    }
-
-    @GetMapping("/upcoming-movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> getUpcomingMovies(@RequestParam("cityCode") String cityCode) {
-        List<MovieResponseDTO> movies = movieService.getUpcomingMovies(cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
-    }
-
-    @GetMapping("/movie")
-    public ResponseEntity<ResponseDTO<List<MovieResponseDTO>>> searchNowPlayingMoviesByTitleAndCityCode(@RequestParam(name = "name") String name, @RequestParam(name = "cityCode") String cityCode) {
-        List<MovieResponseDTO> movies = movieService.findNowPlayingMoviesByTitleAndCityCode(name, cityCode);
-        return ResponseEntity.ok(ResponseDTO.success(movies));
-    }
-
     @GetMapping("/movie/{id}")
     public ResponseEntity<ResponseDTO<MovieResponseDTO>> getMovieDetail(@PathVariable String id) {
         MovieResponseDTO movie = movieService.getMovieDetailBySecureId(id);
