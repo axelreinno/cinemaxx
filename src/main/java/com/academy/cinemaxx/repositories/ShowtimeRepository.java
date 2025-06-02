@@ -1,6 +1,5 @@
 package com.academy.cinemaxx.repositories;
 
-import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.entities.Showtime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
@@ -20,7 +18,7 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
         JOIN FETCH c.city
         WHERE s.movie.secureId = :secureId
         AND DATE(s.startTime) = :date
-        ORDER BY c.name, h.type, s.startTime
+        ORDER BY c.name, h.name, s.startTime
     """)
     List<Showtime> findByMovieSecureIdAndDate(
             @Param("secureId") String secureId,

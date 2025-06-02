@@ -1,9 +1,7 @@
 package com.academy.cinemaxx.entities;
 
 import com.academy.cinemaxx.enums.AgeRating;
-import com.academy.cinemaxx.enums.MovieStatus;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
 import java.time.LocalDate;

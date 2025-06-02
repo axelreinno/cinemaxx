@@ -3,20 +3,16 @@ package com.academy.cinemaxx.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record ResponseDTO<T>(
+public record ResponseDTO<TData>(
         String status,
         String message,
-        T data
+        TData data
 ) {
-    public static <T> ResponseDTO<T> success(T data) {
+    public static <TData> ResponseDTO<TData> success(TData data) {
         return new ResponseDTO<>("success", "OK", data);
     }
 
-    public static <T> ResponseDTO<T> success(String message, T data) {
+    public static <TData> ResponseDTO<TData> success(String message, TData data) {
         return new ResponseDTO<>("success", message, data);
-    }
-
-    public static <T> ResponseDTO<T> error(String message) {
-        return new ResponseDTO<>("error", message, null);
     }
 }
