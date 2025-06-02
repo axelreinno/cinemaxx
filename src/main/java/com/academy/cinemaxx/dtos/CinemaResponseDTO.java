@@ -1,6 +1,6 @@
 package com.academy.cinemaxx.dtos;
 
-public record CinemaDTO (
+public record CinemaResponseDTO (
         String id,
         String name,
         String address,
