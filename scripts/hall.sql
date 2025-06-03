@@ -7,7 +7,6 @@ INSERT INTO public.hall (
 ('HALL IMAX 4', gen_random_uuid(), 1, 2, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 5', gen_random_uuid(), 1, 4, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 6', gen_random_uuid(), 1, 4, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 2, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 2, 1, 15, 13, now(), now()),
 ('HALL 4DX 3', gen_random_uuid(), 2, 3, 15, 13, now(), now()),
@@ -16,21 +15,18 @@ INSERT INTO public.hall (
 ('HALL GOLD CLASS 6', gen_random_uuid(), 2, 5, 15, 13, now(), now()),
 ('HALL SATIN CLASS 7', gen_random_uuid(), 2, 6, 15, 13, now(), now()),
 ('HALL SATIN CLASS 8', gen_random_uuid(), 2, 6, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
 ('HALL REGULAR 3', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
 ('HALL REGULAR 4', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
 ('HALL SWEETBOX 5', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
 ('HALL SWEETBOX 6', gen_random_uuid(), 3, 1, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 4, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 4, 1, 15, 13, now(), now()),
 ('HALL IMAX 3', gen_random_uuid(), 4, 2, 15, 13, now(), now()),
 ('HALL IMAX 4', gen_random_uuid(), 4, 2, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 5', gen_random_uuid(), 4, 4, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 6', gen_random_uuid(), 4, 4, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 5, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 5, 1, 15, 13, now(), now()),
 ('HALL 4DX 3', gen_random_uuid(), 5, 3, 15, 13, now(), now()),
@@ -39,14 +35,12 @@ INSERT INTO public.hall (
 ('HALL GOLD CLASS 6', gen_random_uuid(), 5, 5, 15, 13, now(), now()),
 ('HALL SATIN CLASS 7', gen_random_uuid(), 5, 6, 15, 13, now(), now()),
 ('HALL SATIN CLASS 8', gen_random_uuid(), 5, 6, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 6, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 6, 1, 15, 13, now(), now()),
 ('HALL IMAX 3', gen_random_uuid(), 6, 2, 15, 13, now(), now()),
 ('HALL IMAX 4', gen_random_uuid(), 6, 2, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 5', gen_random_uuid(), 6, 4, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 6', gen_random_uuid(), 6, 4, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 7, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 7, 1, 15, 13, now(), now()),
 ('HALL 4DX 3', gen_random_uuid(), 7, 3, 15, 13, now(), now()),
@@ -55,14 +49,12 @@ INSERT INTO public.hall (
 ('HALL GOLD CLASS 6', gen_random_uuid(), 7, 5, 15, 13, now(), now()),
 ('HALL SATIN CLASS 7', gen_random_uuid(), 7, 6, 15, 13, now(), now()),
 ('HALL SATIN CLASS 8', gen_random_uuid(), 7, 6, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 8, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 8, 1, 15, 13, now(), now()),
 ('HALL IMAX 3', gen_random_uuid(), 8, 2, 15, 13, now(), now()),
 ('HALL IMAX 4', gen_random_uuid(), 8, 2, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 5', gen_random_uuid(), 8, 4, 15, 13, now(), now()),
 ('HALL DOLBY ATMOS 6', gen_random_uuid(), 8, 4, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 9, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 9, 1, 15, 13, now(), now()),
 ('HALL 4DX 3', gen_random_uuid(), 9, 3, 15, 13, now(), now()),
@@ -71,7 +63,6 @@ INSERT INTO public.hall (
 ('HALL GOLD CLASS 6', gen_random_uuid(), 9, 5, 15, 13, now(), now()),
 ('HALL SATIN CLASS 7', gen_random_uuid(), 9, 6, 15, 13, now(), now()),
 ('HALL SATIN CLASS 8', gen_random_uuid(), 9, 6, 15, 13, now(), now()),
-
 ('HALL REGULAR 1', gen_random_uuid(), 10, 1, 15, 13, now(), now()),
 ('HALL REGULAR 2', gen_random_uuid(), 10, 1, 15, 13, now(), now()),
 ('HALL IMAX 3', gen_random_uuid(), 10, 2, 15, 13, now(), now()),
