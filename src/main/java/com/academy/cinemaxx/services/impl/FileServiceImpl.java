@@ -38,7 +38,7 @@ public class FileServiceImpl implements FileService {
 
             String publicUrl = String.format("%s/%s/%s", minioConfig.getUrl(), minioConfig.getBucketName(), objectKey);
 
-            return new PresignedUrlResponseDto(uploadUrl, objectKey, publicUrl);
+            return new PresignedUrlResponseDto(uploadUrl, objectKey);
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate signed URL", e);
         }

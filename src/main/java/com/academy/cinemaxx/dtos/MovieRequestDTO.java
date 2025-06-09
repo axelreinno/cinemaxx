@@ -26,7 +26,7 @@ public record MovieRequestDTO(
     String director,
 
     @NotBlank(message = "Thumbnail is required")
-    String thumbnailUrl,
+    String thumbnail,
 
     String trailerUrl,
 
