@@ -7,7 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "booking", indexes = {
         @Index(name = "booking_secure_id", columnList = "secure_id")
@@ -31,4 +30,44 @@ public class Booking extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSecureId() {
+        return secureId;
+    }
+
+    public void setSecureId(String secureId) {
+        this.secureId = secureId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Showtime getShowtime() {
+        return showtime;
+    }
+
+    public void setShowtime(Showtime showtime) {
+        this.showtime = showtime;
+    }
+
+    public BookingStatus getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
+    }
 }

@@ -7,7 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "booking_seat", indexes = {
         @Index(name = "booking_seat_secure_id", columnList = "secure_id")
@@ -31,4 +30,44 @@ public class BookingSeat extends BaseEntity {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSecureId() {
+        return secureId;
+    }
+
+    public void setSecureId(String secureId) {
+        this.secureId = secureId;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }
