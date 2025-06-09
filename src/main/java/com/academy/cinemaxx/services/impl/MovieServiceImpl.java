@@ -1,6 +1,6 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.CityResponseDTO;
+import com.academy.cinemaxx.configs.MinioConfig;
 import com.academy.cinemaxx.dtos.MovieRequestDTO;
 import com.academy.cinemaxx.dtos.MovieResponseDTO;
 import com.academy.cinemaxx.dtos.PaginationResponseDTO;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,10 +24,12 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
+    private MinioConfig minioConfig;
 
-    public MovieServiceImpl(MovieRepository movieRepository, GenreRepository genreRepository) {
+    public MovieServiceImpl(MovieRepository movieRepository, GenreRepository genreRepository, MinioConfig minioConfig) {
         this.movieRepository = movieRepository;
         this.genreRepository = genreRepository;
+        this.minioConfig = minioConfig;
     }
 
     public PaginationResponseDTO<MovieResponseDTO> getNowPlayingMovies(String cityCode, Pageable pageable) {
@@ -45,7 +46,7 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
-                        movie.getThumbnailUrl(),
+                        movie.getThumbnailUrl() != null ? String.format("%s/%s/%s", minioConfig.getUrl(), minioConfig.getBucketName(), movie.getThumbnailUrl()) : null,
                         movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
@@ -69,7 +70,7 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
-                        movie.getThumbnailUrl(),
+                        movie.getThumbnailUrl() != null ? String.format("%s/%s/%s", minioConfig.getUrl(), minioConfig.getBucketName(), movie.getThumbnailUrl()) : null,
                         movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
@@ -99,7 +100,7 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
-                        movie.getThumbnailUrl(),
+                        movie.getThumbnailUrl() != null ? String.format("%s/%s/%s", minioConfig.getUrl(), minioConfig.getBucketName(), movie.getThumbnailUrl()) : null,
                         movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
@@ -119,7 +120,7 @@ public class MovieServiceImpl implements MovieService {
                 movie.getDurationMin(),
                 movie.getAgeRating(),
                 movie.getReleaseDate(),
-                movie.getThumbnailUrl(),
+                movie.getThumbnailUrl() != null ? String.format("%s/%s/%s", minioConfig.getUrl(), minioConfig.getBucketName(), movie.getThumbnailUrl()) : null,
                 movie.getTrailerUrl(),
                 movie.getGenres().stream()
                         .map(Genre::getGenre)
@@ -142,7 +143,7 @@ public class MovieServiceImpl implements MovieService {
         movie.setReleaseDate(DateTimeUtils.fromEpochDay(movieCreateDTO.releaseDate()));
         movie.setDirector(movieCreateDTO.director());
         movie.setAgeRating(movieCreateDTO.ageRating());
-        movie.setThumbnailUrl(movieCreateDTO.thumbnailUrl());
+        movie.setThumbnailUrl(movieCreateDTO.thumbnail());
         movie.setTrailerUrl(movieCreateDTO.trailerUrl());
         movie.setGenres(genres);
 
