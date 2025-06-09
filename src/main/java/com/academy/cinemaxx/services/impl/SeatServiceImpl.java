@@ -25,9 +25,9 @@ public class SeatServiceImpl implements SeatService {
         this.bookingSeatRepository = bookingSeatRepository;
     }
 
-    public List<SeatRowResponseDTO> findSeatsByShowtimeId(String showtimeSecureId) {
-        List<SeatProjection> seats = seatRepository.findSeatsByShowtimeSecureId(showtimeSecureId);
-        List<BookingSeat> bookedSeats = bookingSeatRepository.findBookedSeatsByShowtimeSecureId(showtimeSecureId);
+    public List<SeatRowResponseDTO> findSeatsByShowtimeId(String showtimeId) {
+        List<SeatProjection> seats = seatRepository.findSeatsByShowtimeSecureId(showtimeId);
+        List<BookingSeat> bookedSeats = bookingSeatRepository.findBookedSeatsByShowtimeSecureId(showtimeId);
         Map<Long, Boolean> bookedSeatMap = bookedSeats.stream()
                 .map(bs -> bs.getSeat().getId())
                 .collect(Collectors.toMap(id -> id, id -> true));

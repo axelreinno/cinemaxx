@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.repositories;
 
-import com.academy.cinemaxx.projections.ShowtimeProjection;
 import com.academy.cinemaxx.entities.Showtime;
+import com.academy.cinemaxx.projections.ShowtimeProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,9 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
+    Optional<Showtime> findBySecureId(String secureId);
+
     @Query("""
         SELECT 
             c.name AS cinemaName,
@@ -32,4 +35,5 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
             @Param("id") String id,
             @Param("date") LocalDate date
     );
+
 }

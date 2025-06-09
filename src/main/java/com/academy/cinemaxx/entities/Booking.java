@@ -2,9 +2,11 @@ package com.academy.cinemaxx.entities;
 
 import com.academy.cinemaxx.enums.BookingStatus;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +31,11 @@ public class Booking extends BaseEntity {
     private Showtime showtime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "booking_status", nullable = false)
     private BookingStatus bookingStatus;
+
+    @OneToMany(mappedBy = "booking")
+    private List<BookingSeat> bookingSeats;
 
     public Long getId() {
         return id;
@@ -69,5 +75,13 @@ public class Booking extends BaseEntity {
 
     public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public List<BookingSeat> getBookingSeats() {
+        return bookingSeats;
+    }
+
+    public void setBookingSeats(List<BookingSeat> bookingSeats) {
+        this.bookingSeats = bookingSeats;
     }
 }
