@@ -18,7 +18,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/cities")
 public class CityController {
     private final CityService cityService;
     private final CinemaService cinemaService;
@@ -30,7 +30,7 @@ public class CityController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/cities")
+    @GetMapping
     public ResponseEntity<PaginationResponseDTO<CityResponseDTO>> getCities(
             @RequestParam(required = false) String names,
             @RequestParam(defaultValue = "0", required = false) int page,
@@ -44,7 +44,7 @@ public class CityController {
         return ResponseEntity.ok(pagination);
     }
 
-    @GetMapping("/city/{code}/playing-movie")
+    @GetMapping("/{code}/playing-movie")
     public ResponseEntity<PaginationResponseDTO<MovieResponseDTO>> getNowPlayingMovies(
             @PathVariable("code") String cityCode,
             @RequestParam(defaultValue = "0", required = false) int page,
@@ -58,7 +58,7 @@ public class CityController {
         return ResponseEntity.ok(pagination);
     }
 
-    @GetMapping("/city/{code}/upcoming-movie")
+    @GetMapping("/{code}/upcoming-movie")
     public ResponseEntity<PaginationResponseDTO<MovieResponseDTO>> getUpcomingMovies(
             @PathVariable("code") String cityCode,
             @RequestParam(defaultValue = "0", required = false) int page,
@@ -72,7 +72,7 @@ public class CityController {
         return ResponseEntity.ok(pagination);
     }
 
-    @GetMapping("/city/{code}/cinema")
+    @GetMapping("/{code}/cinema")
     public ResponseEntity<PaginationResponseDTO<CinemaResponseDTO>> getCinemas(
             @PathVariable(name = "code") String cityCode,
             @RequestParam(required = false) String name,

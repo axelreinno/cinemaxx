@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Validated
 @RestController
-@RequestMapping("/v1/file")
+@RequestMapping("/v1/files")
 public class FileController {
 
     FileService fileService;

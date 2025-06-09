@@ -24,7 +24,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/movies")
 public class MovieController {
     private final MovieService movieService;
     private final ShowtimeService showtimeService;
@@ -34,7 +34,7 @@ public class MovieController {
         this.showtimeService = showtimeService;
     }
 
-    @GetMapping("/movie")
+    @GetMapping
     public ResponseEntity<PaginationResponseDTO<MovieResponseDTO>> getMovies(
             @RequestParam(required = false) String title,
             @RequestParam(defaultValue = "0", required = false) int page,
@@ -48,13 +48,13 @@ public class MovieController {
         return ResponseEntity.ok(pagination);
     }
 
-    @GetMapping("/movie/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<MovieResponseDTO>> getMovieDetail(@PathVariable String id) {
         MovieResponseDTO movie = movieService.getMovieDetailById(id);
         return ResponseEntity.ok(ResponseDTO.success(movie));
     }
 
-    @GetMapping("/movie/{id}/showtime")
+    @GetMapping("/{id}/showtime")
     public ResponseEntity<ResponseDTO<List<MovieShowtimeResponseDTO>>> getShowtime(
             @PathVariable String id,
             @RequestParam
@@ -65,7 +65,7 @@ public class MovieController {
         return ResponseEntity.ok(ResponseDTO.success(showtime));
     }
 
-    @PostMapping("/movie")
+    @PostMapping
     public ResponseEntity<Boolean> createMovie(
             @Valid @RequestBody MovieRequestDTO movieRequestDTO
     ) {
