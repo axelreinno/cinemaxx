@@ -45,6 +45,8 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
+                        movie.getThumbnailUrl(),
+                        movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
                                 .map(Genre::getGenre)
@@ -67,6 +69,8 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
+                        movie.getThumbnailUrl(),
+                        movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
                                 .map(Genre::getGenre)
@@ -95,6 +99,8 @@ public class MovieServiceImpl implements MovieService {
                         movie.getDurationMin(),
                         movie.getAgeRating(),
                         movie.getReleaseDate(),
+                        movie.getThumbnailUrl(),
+                        movie.getTrailerUrl(),
                         movie.getGenres()
                                 .stream()
                                 .map(Genre::getGenre)
@@ -113,6 +119,8 @@ public class MovieServiceImpl implements MovieService {
                 movie.getDurationMin(),
                 movie.getAgeRating(),
                 movie.getReleaseDate(),
+                movie.getThumbnailUrl(),
+                movie.getTrailerUrl(),
                 movie.getGenres().stream()
                         .map(Genre::getGenre)
                         .collect(Collectors.toList())

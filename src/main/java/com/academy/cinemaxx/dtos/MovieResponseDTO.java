@@ -12,5 +12,7 @@ public record MovieResponseDTO(
         int durationMinutes,
         AgeRating rating,
         LocalDate releaseDate,
+        String thumbnailUrl,
+        String trailerUrl,
         List<String> genres
 ) {}

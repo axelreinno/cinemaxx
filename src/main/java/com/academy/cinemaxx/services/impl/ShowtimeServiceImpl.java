@@ -35,7 +35,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
                                         showtime -> {
                                             long startTime = DateTimeUtils.toEpochSecond(showtime.getStartTime());
                                             long endTime = DateTimeUtils.toEpochSecond(showtime.getEndTime());
-                                            return new ShowtimeResponseDTO(startTime, endTime);
+                                            return new ShowtimeResponseDTO(showtime.getSecureId(), startTime, endTime);
                                         },
                                         Collectors.toList()
                                 )

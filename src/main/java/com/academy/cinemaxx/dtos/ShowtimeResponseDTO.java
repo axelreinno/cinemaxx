@@ -1,8 +1,7 @@
 package com.academy.cinemaxx.dtos;
 
-import java.time.LocalDateTime;
-
 public record ShowtimeResponseDTO(
+        String id,
         Long startTime,
         Long endTime
 ) {}

@@ -16,6 +16,7 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
         SELECT 
             c.name AS cinemaName,
             h.name AS hallName,
+            s.secureId AS secureId,
             s.startTime AS startTime,
             s.endTime AS endTime
         FROM Showtime s
