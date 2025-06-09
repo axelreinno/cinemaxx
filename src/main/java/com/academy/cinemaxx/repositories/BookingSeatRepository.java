@@ -14,8 +14,21 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
         SELECT bs FROM BookingSeat bs
         JOIN bs.booking b
         JOIN b.showtime st
-        WHERE st.secureId = :showtimeSecureId
-        AND b.bookingStatus != 'CANCELLED'
+        WHERE st.secureId = :id
+        AND b.bookingStatus IN ('PENDING', 'BOOKED')
     """)
-    List<BookingSeat> findBookedSeatsByShowtimeSecureId(@Param("showtimeSecureId") String showtimeSecureId);
+    List<BookingSeat> findBookedSeatsByShowtimeSecureId(@Param("id") String showtimeId);
+
+    @Query("""
+        SELECT bs FROM BookingSeat bs
+        JOIN bs.booking b
+        JOIN b.showtime st
+        WHERE st.secureId = :id
+        AND bs.seat.id IN :seatIds
+        AND b.bookingStatus IN ('PENDING', 'BOOKED')
+    """)
+    List<BookingSeat> findExistingBookingsForSeats(
+        @Param("id") String showtimeId,
+        @Param("seatIds") List<Long> seatIds
+    );
 } 

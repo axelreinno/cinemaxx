@@ -33,6 +33,12 @@ public class GlobalExceptionHandler {
                 .body(ErrorResponseDTO.error(ex.getMessage()));
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponseDTO<Object>> handleBadRequest(BadRequestException ex) {
+        log.warn("LOG: Bad Request: {}", ex.getMessage());
+        return ResponseEntity.badRequest().body(ErrorResponseDTO.error(ex.getMessage()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDTO<Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
