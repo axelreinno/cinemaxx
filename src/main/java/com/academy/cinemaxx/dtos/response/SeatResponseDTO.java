@@ -1,4 +1,4 @@
-package com.academy.cinemaxx.dtos;
+package com.academy.cinemaxx.dtos.response;
 
 import com.academy.cinemaxx.enums.SeatStatus;
 

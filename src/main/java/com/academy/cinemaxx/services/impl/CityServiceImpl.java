@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.CityResponseDTO;
-import com.academy.cinemaxx.dtos.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.CityResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
 import com.academy.cinemaxx.entities.City;
 import com.academy.cinemaxx.repositories.CityRepository;
 import com.academy.cinemaxx.services.CityService;

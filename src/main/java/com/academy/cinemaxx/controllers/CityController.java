@@ -1,6 +1,9 @@
 package com.academy.cinemaxx.controllers;
 
-import com.academy.cinemaxx.dtos.*;
+import com.academy.cinemaxx.dtos.response.CinemaResponseDTO;
+import com.academy.cinemaxx.dtos.response.CityResponseDTO;
+import com.academy.cinemaxx.dtos.response.MovieResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
 import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.CinemaService;
 import com.academy.cinemaxx.services.CityService;
@@ -13,8 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Validated
 @RestController

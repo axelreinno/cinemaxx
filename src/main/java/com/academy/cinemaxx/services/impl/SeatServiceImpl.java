@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.SeatResponseDTO;
-import com.academy.cinemaxx.dtos.SeatRowResponseDTO;
+import com.academy.cinemaxx.dtos.response.SeatResponseDTO;
+import com.academy.cinemaxx.dtos.response.SeatRowResponseDTO;
 import com.academy.cinemaxx.entities.BookingSeat;
 import com.academy.cinemaxx.enums.SeatStatus;
 import com.academy.cinemaxx.projections.SeatProjection;

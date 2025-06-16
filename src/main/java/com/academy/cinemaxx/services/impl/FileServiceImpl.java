@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.services.impl;
 
 import com.academy.cinemaxx.configs.MinioConfig;
-import com.academy.cinemaxx.dtos.PresignedUrlResponseDto;
+import com.academy.cinemaxx.dtos.response.PresignedUrlResponseDto;
 import com.academy.cinemaxx.services.FileService;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;

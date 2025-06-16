@@ -1,9 +1,9 @@
 package com.academy.cinemaxx.services.impl;
 
 import com.academy.cinemaxx.configs.MinioConfig;
-import com.academy.cinemaxx.dtos.MovieRequestDTO;
-import com.academy.cinemaxx.dtos.MovieResponseDTO;
-import com.academy.cinemaxx.dtos.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.request.MovieRequestDTO;
+import com.academy.cinemaxx.dtos.response.MovieResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
 import com.academy.cinemaxx.entities.Genre;
 import com.academy.cinemaxx.entities.Movie;
 import com.academy.cinemaxx.repositories.GenreRepository;

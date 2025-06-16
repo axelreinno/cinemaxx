@@ -1,6 +1,6 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.BookingSeatsRequestDTO;
+import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
 import com.academy.cinemaxx.entities.*;
 import com.academy.cinemaxx.enums.BookingStatus;
 import com.academy.cinemaxx.repositories.*;

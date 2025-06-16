@@ -1,7 +1,6 @@
-package com.academy.cinemaxx.dtos;
+package com.academy.cinemaxx.dtos.request;
 
 import com.academy.cinemaxx.enums.AgeRating;
-import com.academy.cinemaxx.validators.annotations.ValidEnum;
 import jakarta.validation.constraints.*;
 
 import java.util.List;

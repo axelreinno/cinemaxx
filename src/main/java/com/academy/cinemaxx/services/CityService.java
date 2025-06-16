@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.services;
 
-import com.academy.cinemaxx.dtos.CityResponseDTO;
-import com.academy.cinemaxx.dtos.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.CityResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
 import org.springframework.data.domain.Pageable;
 
 

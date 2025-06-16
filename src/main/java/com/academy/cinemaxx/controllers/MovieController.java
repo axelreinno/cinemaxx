@@ -1,10 +1,10 @@
 package com.academy.cinemaxx.controllers;
 
-import com.academy.cinemaxx.dtos.MovieRequestDTO;
-import com.academy.cinemaxx.dtos.MovieResponseDTO;
-import com.academy.cinemaxx.dtos.MovieShowtimeResponseDTO;
-import com.academy.cinemaxx.dtos.PaginationResponseDTO;
-import com.academy.cinemaxx.dtos.ResponseDTO;
+import com.academy.cinemaxx.dtos.request.MovieRequestDTO;
+import com.academy.cinemaxx.dtos.response.MovieResponseDTO;
+import com.academy.cinemaxx.dtos.response.MovieShowtimeResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.ResponseDTO;
 import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.MovieService;
 import com.academy.cinemaxx.services.ShowtimeService;
