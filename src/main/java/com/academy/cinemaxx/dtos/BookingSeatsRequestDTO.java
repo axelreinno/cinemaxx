@@ -1,14 +1,18 @@
 package com.academy.cinemaxx.dtos;
 
+import com.academy.cinemaxx.validators.annotations.ValidSeats;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-
+@ValidSeats
 public record BookingSeatsRequestDTO(
     @NotNull(message = "User ID is required")
     String userId,
+
+    @NotNull(message = "Showtime ID is required")
+    String showtimeId,
 
     @NotNull(message = "Seat IDs are required")
     @Size(min = 1, message = "At least one seat must be selected")
