@@ -1,17 +1,14 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.CinemaResponseDTO;
-import com.academy.cinemaxx.dtos.CityResponseDTO;
-import com.academy.cinemaxx.dtos.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.CinemaResponseDTO;
+import com.academy.cinemaxx.dtos.response.CityResponseDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
 import com.academy.cinemaxx.entities.Cinema;
 import com.academy.cinemaxx.repositories.CinemaRepository;
 import com.academy.cinemaxx.services.CinemaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {

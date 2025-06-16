@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.controllers;
 
-import com.academy.cinemaxx.dtos.ResponseDTO;
-import com.academy.cinemaxx.dtos.SeatRowResponseDTO;
+import com.academy.cinemaxx.dtos.response.ResponseDTO;
+import com.academy.cinemaxx.dtos.response.SeatRowResponseDTO;
 import com.academy.cinemaxx.services.impl.SeatServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

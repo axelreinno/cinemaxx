@@ -1,7 +1,7 @@
 package com.academy.cinemaxx.controllers;
 
-import com.academy.cinemaxx.dtos.PresignedUrlResponseDto;
-import com.academy.cinemaxx.dtos.ResponseDTO;
+import com.academy.cinemaxx.dtos.response.PresignedUrlResponseDto;
+import com.academy.cinemaxx.dtos.response.ResponseDTO;
 import com.academy.cinemaxx.services.FileService;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;

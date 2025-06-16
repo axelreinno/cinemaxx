@@ -1,7 +1,6 @@
 package com.academy.cinemaxx.services;
 
-import com.academy.cinemaxx.dtos.SeatResponseDTO;
-import com.academy.cinemaxx.dtos.SeatRowResponseDTO;
+import com.academy.cinemaxx.dtos.response.SeatRowResponseDTO;
 
 import java.util.List;
 

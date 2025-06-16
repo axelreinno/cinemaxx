@@ -1,6 +1,6 @@
 package com.academy.cinemaxx.validators;
 
-import com.academy.cinemaxx.dtos.BookingSeatsRequestDTO;
+import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
 import com.academy.cinemaxx.entities.Seat;
 import com.academy.cinemaxx.entities.Showtime;
 import com.academy.cinemaxx.entities.User;

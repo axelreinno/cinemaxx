@@ -1,4 +1,4 @@
-package com.academy.cinemaxx.dtos;
+package com.academy.cinemaxx.dtos.response;
 
 public record PresignedUrlResponseDto(
         String uploadUrl,

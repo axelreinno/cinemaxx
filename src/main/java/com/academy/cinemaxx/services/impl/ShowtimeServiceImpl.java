@@ -1,6 +1,8 @@
 package com.academy.cinemaxx.services.impl;
 
-import com.academy.cinemaxx.dtos.*;
+import com.academy.cinemaxx.dtos.response.HallShowtimeResponseDTO;
+import com.academy.cinemaxx.dtos.response.MovieShowtimeResponseDTO;
+import com.academy.cinemaxx.dtos.response.ShowtimeResponseDTO;
 import com.academy.cinemaxx.projections.ShowtimeProjection;
 import com.academy.cinemaxx.repositories.ShowtimeRepository;
 import com.academy.cinemaxx.services.ShowtimeService;

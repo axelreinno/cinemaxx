@@ -1,4 +1,4 @@
-package com.academy.cinemaxx.dtos;
+package com.academy.cinemaxx.dtos.request;
 
 import com.academy.cinemaxx.validators.annotations.ValidSeats;
 import jakarta.validation.constraints.NotNull;
