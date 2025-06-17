@@ -28,3 +28,18 @@ minio:
   access-key: kLUMrSHWCxUl49MUg65y
   access-secret: 5PA1VmBeXv9bCMhzV44EEjL2mT3UhblwJSIsueqk
   bucket-name: cinemaxx
+mail:
+  smtp:
+    host: sandbox.smtp.mailtrap.io
+    port: 587
+    auth: true
+    ssl:
+      trust: sandbox.smtp.mailtrap.io
+    starttls:
+      enable: true
+  username: a41e01591f6715
+  password: 93336af2fe6cec
+
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  expiration: 30
