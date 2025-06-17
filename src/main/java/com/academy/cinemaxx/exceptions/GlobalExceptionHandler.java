@@ -23,9 +23,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO<Object>> handleEntityNotFound(EntityNotFoundException ex) {
-        log.warn("LOG: Entity not found: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ErrorResponseDTO.error(ex.getMessage()));
+    }
+
+    @ExceptionHandler(BadRequestRuntimeException.class)
+    public ResponseEntity<ErrorResponseDTO<Object>> handleBadRequest(BadRequestRuntimeException ex) {
+        return ResponseEntity.badRequest().body(ErrorResponseDTO.error(ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -58,7 +62,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDTO<Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
-        log.warn("LOG: Illegal Argument: {}", ex.getMessage());
         return ResponseEntity.badRequest().body(ErrorResponseDTO.error(ex.getMessage()));
     }
 
@@ -69,7 +72,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDTO<Object>> handleGenericException(Exception ex) {
-        log.error("LOG: Unhandled exception: {}", ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ErrorResponseDTO.error("An unexpected error occurred"));
     }
