@@ -21,6 +21,17 @@ spring:
           batch_size: 100
         order_inserts: true
     show-sql: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+  show-actuator: false
+  packages-to-scan: com.academy.cinemaxx.controllers
+
 server:
   port: 8080
 minio:

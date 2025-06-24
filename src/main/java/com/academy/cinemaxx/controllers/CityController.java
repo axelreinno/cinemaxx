@@ -10,6 +10,7 @@ import com.academy.cinemaxx.services.CityService;
 import com.academy.cinemaxx.services.MovieService;
 import com.academy.cinemaxx.validators.annotations.ValidSortDirection;
 import com.academy.cinemaxx.validators.annotations.ValidSortField;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @RestController
 @RequestMapping("/v1/cities")
+@Tag(name = "Cities", description = "Cities APIs")
 public class CityController {
     private final CityService cityService;
     private final CinemaService cinemaService;
