@@ -22,7 +22,6 @@ public class SeatValidator implements ConstraintValidator<ValidSeats, BookingSea
     private final SeatRepository seatRepository;
     private final ShowtimeRepository showtimeRepository;
     private final BookingSeatRepository bookingSeatRepository;
-    private final UserRepository userRepository;
 
     public SeatValidator(
             SeatRepository seatRepository,
@@ -33,12 +32,11 @@ public class SeatValidator implements ConstraintValidator<ValidSeats, BookingSea
         this.seatRepository = seatRepository;
         this.showtimeRepository = showtimeRepository;
         this.bookingSeatRepository = bookingSeatRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
     public boolean isValid(BookingSeatsRequestDTO request, ConstraintValidatorContext context) {
-        if (request == null || request.showtimeId() == null || request.seatIds() == null || request.userId() == null) {
+        if (request == null || request.showtimeId() == null || request.seatIds() == null) {
             return true;
         }
 
@@ -48,16 +46,6 @@ public class SeatValidator implements ConstraintValidator<ValidSeats, BookingSea
             context
                     .buildConstraintViolationWithTemplate("Showtime not found")
                     .addPropertyNode("showtimeId")
-                    .addConstraintViolation();
-            return false;
-        }
-
-        Optional<User> userOpt = userRepository.findBySecureId(request.userId());
-        if (userOpt.isEmpty()) {
-            context.disableDefaultConstraintViolation();
-            context
-                    .buildConstraintViolationWithTemplate("User not found")
-                    .addPropertyNode("userId")
                     .addConstraintViolation();
             return false;
         }

@@ -8,9 +8,6 @@ import java.util.List;
 
 @ValidSeats
 public record BookingSeatsRequestDTO(
-    @NotNull(message = "User ID is required")
-    String userId,
-
     @NotNull(message = "Showtime ID is required")
     String showtimeId,
 
