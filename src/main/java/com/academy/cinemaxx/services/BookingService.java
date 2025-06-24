@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface BookingService {
     void createBooking(BookingSeatsRequestDTO bookingSeatsRequestDTO);
+    void payBooking(String id);
+    void cancelBooking(String id);
     PaginationResponseDTO<BookingListResponseDTO> getBookings(String movie, String name, String email, BookingStatus status, Pageable pageable);
     BookingDetailResponseDTO getBookingBySecureId(String secureId);
 } 
