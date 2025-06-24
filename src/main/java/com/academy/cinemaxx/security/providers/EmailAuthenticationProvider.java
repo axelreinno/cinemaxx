@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,14 +22,17 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
     private final UserRepository userRepository;
     private final UserOtpRepository userOtpRepository;
     private final MailService mailService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public EmailAuthenticationProvider(
             UserRepository userRepository,
             UserOtpRepository userOtpRepository,
-            MailService mailService) {
+            MailService mailService,
+            BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userOtpRepository = userOtpRepository;
         this.mailService = mailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -39,11 +43,12 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("User not found"));
 
-        String otp = generateOTP();
+        String plainOtp = generateOTP();
+        String encryptedOtp = passwordEncoder.encode(plainOtp);
 
         UserOtp userOtp = new UserOtp();
         userOtp.setUser(user);
-        userOtp.setOtp(otp);
+        userOtp.setOtp(encryptedOtp);
         userOtp.setUsed(false);
         userOtp.setExpiresAt(LocalDateTime.now().plusMinutes(5));
         userOtpRepository.save(userOtp);
@@ -53,7 +58,7 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
                     <h1>Cinemaxx OTP Verification</h1>
                     <p>Your OTP code is: <strong>%s</strong></p>
                     <p>This code will expire in 5 minutes.</p>
-                    """, otp);
+                    """, plainOtp);
             mailService.sendMail(message);
         } catch (Exception e) {
             throw new BadCredentialsException("Failed to send OTP");

@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -20,18 +21,22 @@ import java.util.List;
 public class OtpAuthenticationProvider implements AuthenticationProvider {
     private final UserRepository userRepository;
     private final UserOtpRepository userOtpRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public OtpAuthenticationProvider(UserRepository userRepository, UserOtpRepository userOtpRepository) {
+    public OtpAuthenticationProvider(
+            UserRepository userRepository,
+            UserOtpRepository userOtpRepository,
+            BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userOtpRepository = userOtpRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         OtpAuthenticationToken authToken = (OtpAuthenticationToken) authentication;
         String email = authToken.getPrincipal().toString();
-        String otp = authToken.getCredentials().toString();
+        String plainOtp = authToken.getCredentials().toString();
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("Invalid email"));
@@ -39,7 +44,7 @@ public class OtpAuthenticationProvider implements AuthenticationProvider {
         UserOtp userOtp = userOtpRepository.findFirstByUserAndIsUsedFalseAndExpiresAtAfterOrderByCreatedAtDesc(user, LocalDateTime.now())
                 .orElseThrow(() -> new BadCredentialsException("No OTP found"));
 
-        if (!userOtp.getOtp().equals(otp)) {
+        if (!passwordEncoder.matches(plainOtp, userOtp.getOtp())) {
             throw new BadCredentialsException("Invalid OTP");
         }
 
