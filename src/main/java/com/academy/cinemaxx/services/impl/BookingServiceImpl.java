@@ -71,6 +71,32 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public void payBooking(String id) {
+        Booking booking = bookingRepository.findBySecureId(id)
+                .orElseThrow(() -> new BadRequestRuntimeException("Booking invalid"));
+
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(booking.getPaymentExpiredAt())) {
+            throw new BadRequestRuntimeException("Booking payment has expired");
+        }
+
+        booking.setPaymentAt(now);
+        booking.setBookingStatus(BookingStatus.PAID);
+
+        bookingRepository.save(booking);
+    }
+
+    @Override
+    public void cancelBooking(String id) {
+        Booking booking = bookingRepository.findBySecureId(id)
+                .orElseThrow(() -> new BadRequestRuntimeException("Booking invalid"));
+
+        booking.setBookingStatus(BookingStatus.CANCELLED);
+
+        bookingRepository.save(booking);
+    }
+
+    @Override
     public PaginationResponseDTO<BookingListResponseDTO> getBookings(String movie, String name, String email, BookingStatus status, Pageable pageable) {
         Page<BookingListProjection> bookings = bookingRepository.findAllBookingList(movie, name, email, status, pageable);
 

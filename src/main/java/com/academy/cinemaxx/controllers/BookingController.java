@@ -66,4 +66,24 @@ public class BookingController {
         BookingDetailResponseDTO booking = bookingService.getBookingBySecureId(id);
         return ResponseEntity.ok(ResponseDTO.success(booking));
     }
+
+    @PutMapping("/{id}/pay")
+    public ResponseEntity<Boolean> payBooking(
+            @PathVariable String id
+    ) {
+        bookingService.payBooking(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(true);
+    }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<Boolean> cancelBooking(
+            @PathVariable String id
+    ) {
+        bookingService.cancelBooking(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(true);
+    }
 }
