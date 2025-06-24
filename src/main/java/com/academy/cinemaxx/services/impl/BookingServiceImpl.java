@@ -1,39 +1,42 @@
 package com.academy.cinemaxx.services.impl;
 
 import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
+import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.BookingListResponseDTO;
 import com.academy.cinemaxx.entities.*;
 import com.academy.cinemaxx.enums.BookingStatus;
+import com.academy.cinemaxx.projections.BookingListProjection;
 import com.academy.cinemaxx.repositories.*;
-import com.academy.cinemaxx.services.BookingSeatService;
+import com.academy.cinemaxx.services.BookingService;
 import com.academy.cinemaxx.services.UserService;
+import com.academy.cinemaxx.utils.DateTimeUtils;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class BookingSeatServiceImpl implements BookingSeatService {
+public class BookingServiceImpl implements BookingService {
     private final SeatRepository seatRepository;
     private final ShowtimeRepository showtimeRepository;
     private final BookingRepository bookingRepository;
     private final BookingSeatRepository bookingSeatRepository;
-    private final UserRepository userRepository;
     private final UserService userService;
 
-    public BookingSeatServiceImpl(
+    public BookingServiceImpl(
             SeatRepository seatRepository,
             ShowtimeRepository showtimeRepository,
             BookingRepository bookingRepository,
             BookingSeatRepository bookingSeatRepository,
-            UserRepository userRepository,
             UserService userService
     ) {
         this.seatRepository = seatRepository;
         this.showtimeRepository = showtimeRepository;
         this.bookingRepository = bookingRepository;
         this.bookingSeatRepository = bookingSeatRepository;
-        this.userRepository = userRepository;
         this.userService = userService;
     }
 
@@ -62,5 +65,28 @@ public class BookingSeatServiceImpl implements BookingSeatService {
                 .toList();
 
         bookingSeatRepository.saveAll(bookingSeats);
+    }
+
+
+    @Override
+    public PaginationResponseDTO<BookingListResponseDTO> getBookings(String movie, String name, String email, BookingStatus status, Pageable pageable) {
+        Page<BookingListProjection> bookings = bookingRepository.findAllBookingList(movie, name, email, status, pageable);
+
+        return new PaginationResponseDTO<>(
+                bookings.getSize(),
+                bookings.getTotalPages(),
+                bookings.getTotalElements(),
+                bookings.map(booking -> new BookingListResponseDTO(
+                        booking.getSecureId(),
+                        booking.getEmail(),
+                        booking.getName(),
+                        booking.getMovieTitle(),
+                        booking.getBookingStatus(),
+                        booking.getPaymentAt() != null ? DateTimeUtils.toEpochSecond(booking.getPaymentAt()) : null,
+                        DateTimeUtils.toEpochSecond(booking.getPaymentExpiredAt()),
+                        booking.getTotalPrice(),
+                        booking.getTotalSeats())
+                ).getContent()
+        );
     }
 } 
