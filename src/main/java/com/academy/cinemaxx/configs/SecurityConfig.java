@@ -4,6 +4,7 @@ import com.academy.cinemaxx.security.filters.EmailAuthenticationFilter;
 import com.academy.cinemaxx.security.filters.JwtTokenAuthenticationProcessingFilter;
 import com.academy.cinemaxx.security.filters.OtpAuthenticationFilter;
 import com.academy.cinemaxx.security.handlers.AuthFailureHandler;
+import com.academy.cinemaxx.security.handlers.CustomAccessDeniedHandler;
 import com.academy.cinemaxx.security.handlers.EmailAuthenticationSuccessHandler;
 import com.academy.cinemaxx.security.handlers.OtpAuthenticationSuccessHandler;
 import com.academy.cinemaxx.security.providers.EmailAuthenticationProvider;
@@ -19,10 +20,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -35,6 +38,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
@@ -103,6 +107,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler(objectMapper);
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
         return new ProviderManager(Arrays.asList(
@@ -111,7 +120,6 @@ public class SecurityConfig {
             jwtAuthenticationProvider
         ));
     }
-
 
     @Bean
     public EmailAuthenticationFilter emailAuthenticationFilter(
@@ -154,7 +162,8 @@ public class SecurityConfig {
             HttpSecurity http,
             EmailAuthenticationFilter emailAuthenticationFilter,
             OtpAuthenticationFilter otpAuthenticationFilter,
-            JwtTokenAuthenticationProcessingFilter jwtTokenAuthenticationProcessingFilter) throws Exception {
+            JwtTokenAuthenticationProcessingFilter jwtTokenAuthenticationProcessingFilter,
+            AccessDeniedHandler accessDeniedHandler) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
@@ -168,6 +177,8 @@ public class SecurityConfig {
                         .requestMatchers(SWAGGER_URL).permitAll()
                         .requestMatchers(V1_URL).authenticated()
                         .anyRequest().authenticated())
+                .exceptionHandling(exceptions -> exceptions
+                        .accessDeniedHandler(accessDeniedHandler))
                 .securityMatcher(V1_URL)
                 .anonymous(anonymous -> anonymous.disable());
 
