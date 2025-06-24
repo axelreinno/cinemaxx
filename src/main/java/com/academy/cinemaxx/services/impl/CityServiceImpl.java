@@ -17,7 +17,6 @@ public class CityServiceImpl implements CityService {
         this.cityRepository = cityRepository;
     }
 
-
     public PaginationResponseDTO<CityResponseDTO> getCities(String name, Pageable pageable) {
         Page<City> cities;
 
