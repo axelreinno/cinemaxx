@@ -4,8 +4,8 @@ import com.academy.cinemaxx.enums.BookingStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,8 +34,13 @@ public class Booking extends BaseEntity {
     @Column(name = "booking_status", nullable = false)
     private BookingStatus bookingStatus;
 
+    private LocalDateTime paymentAt;
+
+    @Column(nullable = false)
+    private LocalDateTime paymentExpiredAt;
+
     @OneToMany(mappedBy = "booking")
-    private List<BookingSeat> bookingSeats;
+    private List<BookingSeat> bookingSeats  = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -75,6 +80,22 @@ public class Booking extends BaseEntity {
 
     public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+
+    public LocalDateTime getPaymentAt() {
+        return paymentAt;
+    }
+
+    public void setPaymentAt(LocalDateTime paymentAt) {
+        this.paymentAt = paymentAt;
+    }
+
+    public LocalDateTime getPaymentExpiredAt() {
+        return paymentExpiredAt;
+    }
+
+    public void setPaymentExpiredAt(LocalDateTime paymentExpiredAt) {
+        this.paymentExpiredAt = paymentExpiredAt;
     }
 
     public List<BookingSeat> getBookingSeats() {

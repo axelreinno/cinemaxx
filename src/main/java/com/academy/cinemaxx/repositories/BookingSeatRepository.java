@@ -15,7 +15,7 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
         JOIN bs.booking b
         JOIN b.showtime st
         WHERE st.secureId = :id
-        AND b.bookingStatus IN ('PENDING', 'BOOKED')
+        AND b.bookingStatus IN ('PENDING', 'PAID')
     """)
     List<BookingSeat> findBookedSeatsByShowtimeSecureId(@Param("id") String showtimeId);
 
@@ -25,7 +25,7 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
         JOIN b.showtime st
         WHERE st.secureId = :id
         AND bs.seat.id IN :seatIds
-        AND b.bookingStatus IN ('PENDING', 'BOOKED')
+        AND b.bookingStatus IN ('PENDING', 'PAID')
     """)
     List<BookingSeat> findExistingBookingsForSeats(
         @Param("id") String showtimeId,
