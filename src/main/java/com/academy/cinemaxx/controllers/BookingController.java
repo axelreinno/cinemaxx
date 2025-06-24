@@ -10,6 +10,7 @@ import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.BookingService;
 import com.academy.cinemaxx.validators.annotations.ValidSortDirection;
 import com.academy.cinemaxx.validators.annotations.ValidSortField;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,6 +24,7 @@ import jakarta.validation.Valid;
 @Validated
 @RestController
 @RequestMapping("/v1/booking")
+@Tag(name = "Booking", description = "Booking APIs")
 public class BookingController {
     private final BookingService bookingService;
 

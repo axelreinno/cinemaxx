@@ -45,6 +45,19 @@ public class SecurityConfig {
     private final EmailAuthenticationProvider emailAuthenticationProvider;
     private final OtpAuthenticationProvider otpAuthenticationProvider;
 
+    private static final String LOGIN_URL = "/v1/auth/login";
+    private static final String VERIFY_URL = "/v1/auth/verify";
+    private static final String V1_URL = "/v1/**";
+    private static final String[] SWAGGER_URL = {
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-resources/**",
+            "/webjars/**"
+    };
+
     public SecurityConfig(
             EmailAuthenticationProvider emailAuthenticationProvider,
             OtpAuthenticationProvider otpAuthenticationProvider,
@@ -106,7 +119,7 @@ public class SecurityConfig {
             @Qualifier("emailAuthenticationSuccessHandler") AuthenticationSuccessHandler successHandler,
             @Qualifier("authFailureHandler") AuthenticationFailureHandler failureHandler,
             ObjectMapper objectMapper) {
-        EmailAuthenticationFilter emailAuthenticationFilter = new EmailAuthenticationFilter("/v1/auth/login", successHandler, failureHandler,
+        EmailAuthenticationFilter emailAuthenticationFilter = new EmailAuthenticationFilter(LOGIN_URL, successHandler, failureHandler,
                 objectMapper);
         emailAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return emailAuthenticationFilter;
@@ -118,7 +131,7 @@ public class SecurityConfig {
             @Qualifier("otpSuccessHandler") AuthenticationSuccessHandler successHandler,
             @Qualifier("authFailureHandler") AuthenticationFailureHandler failureHandler,
             ObjectMapper objectMapper) {
-        OtpAuthenticationFilter otpAuthenticationFilter = new OtpAuthenticationFilter("/v1/auth/verify", successHandler, failureHandler,
+        OtpAuthenticationFilter otpAuthenticationFilter = new OtpAuthenticationFilter(VERIFY_URL, successHandler, failureHandler,
                 objectMapper);
         otpAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return otpAuthenticationFilter;
@@ -128,8 +141,8 @@ public class SecurityConfig {
     public JwtTokenAuthenticationProcessingFilter jwtTokenAuthenticationProcessingFilter(
             AuthenticationManager authenticationManager,
             AuthenticationFailureHandler failureHandler) {
-        List<String> pathsToSkip = Arrays.asList("/v1/auth/login", "/v1/auth/verify");
-        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, "/v1/**");
+        List<String> pathsToSkip = Arrays.asList(LOGIN_URL, VERIFY_URL);
+        SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, V1_URL);
         JwtTokenAuthenticationProcessingFilter filter = new JwtTokenAuthenticationProcessingFilter(
                 failureHandler, tokenExtractor, matcher);
         filter.setAuthenticationManager(authenticationManager);
@@ -151,12 +164,13 @@ public class SecurityConfig {
                 .addFilterBefore(emailAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenAuthenticationProcessingFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/v1/auth/login", "/v1/auth/verify").permitAll()
-                        .requestMatchers("/v1/**").authenticated()
+                        .requestMatchers(VERIFY_URL, VERIFY_URL).permitAll()
+                        .requestMatchers(SWAGGER_URL).permitAll()
+                        .requestMatchers(V1_URL).authenticated()
                         .anyRequest().authenticated())
-                .securityMatcher("/v1/**")
+                .securityMatcher(V1_URL)
                 .anonymous(anonymous -> anonymous.disable());
 
         return http.build();
     }
-} 
+}
