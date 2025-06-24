@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/movies")
 @Tag(name = "Movies", description = "Movie APIs")
+@SecurityRequirement(name = "bearerAuth")
 public class MovieController {
     private final MovieService movieService;
     private final ShowtimeService showtimeService;

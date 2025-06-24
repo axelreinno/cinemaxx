@@ -3,6 +3,7 @@ package com.academy.cinemaxx.controllers;
 import com.academy.cinemaxx.dtos.response.ResponseDTO;
 import com.academy.cinemaxx.dtos.response.SeatRowResponseDTO;
 import com.academy.cinemaxx.services.impl.SeatServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/showtimes")
 @Tag(name = "Showtimes", description = "Showtimes APIs")
+@SecurityRequirement(name = "bearerAuth")
 public class ShowtimeController {
     private final SeatServiceImpl seatService;
 

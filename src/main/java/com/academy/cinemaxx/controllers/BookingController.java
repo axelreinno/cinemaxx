@@ -27,6 +27,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/v1/booking")
 @Tag(name = "Booking", description = "Booking APIs")
+@SecurityRequirement(name = "bearerAuth")
 public class BookingController {
     private final BookingService bookingService;
 
