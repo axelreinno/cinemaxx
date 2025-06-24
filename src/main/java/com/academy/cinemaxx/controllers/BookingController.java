@@ -10,12 +10,14 @@ import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.BookingService;
 import com.academy.cinemaxx.validators.annotations.ValidSortDirection;
 import com.academy.cinemaxx.validators.annotations.ValidSortField;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,7 @@ public class BookingController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<PaginationResponseDTO<BookingListResponseDTO>> getBooking(
             @RequestParam(required = false) String movie,
             @RequestParam(required = false) String name,
@@ -62,6 +65,7 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResponseDTO<BookingDetailResponseDTO>> getBookingDetail(
             @PathVariable String id
     ) {
@@ -70,6 +74,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}/pay")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Boolean> payBooking(
             @PathVariable String id
     ) {
@@ -80,6 +85,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}/cancel")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Boolean> cancelBooking(
             @PathVariable String id
     ) {
