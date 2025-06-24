@@ -3,8 +3,9 @@ package com.academy.cinemaxx.dtos.response;
 import com.academy.cinemaxx.enums.BookingStatus;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public record BookingListResponseDTO(
+public record BookingDetailResponseDTO(
         String id,
         String email,
         String name,
@@ -13,5 +14,6 @@ public record BookingListResponseDTO(
         Long paymentAt,
         Long paymentExpiredAt,
         BigDecimal totalPrice,
-        Integer totalSeats
+        Integer totalSeats,
+        List<BookingSeatDetailResponseDTO> seats
 ) { } 

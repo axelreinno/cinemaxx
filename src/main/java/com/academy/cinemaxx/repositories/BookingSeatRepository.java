@@ -31,4 +31,12 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
         @Param("id") String showtimeId,
         @Param("seatIds") List<Long> seatIds
     );
+
+    @Query("""
+        SELECT bs FROM BookingSeat bs
+        JOIN bs.booking b
+        WHERE b.secureId = :bookingId
+        AND b.deleted = false
+    """)
+    List<BookingSeat> findByBookingSecureId(@Param("bookingId") String bookingId);
 } 

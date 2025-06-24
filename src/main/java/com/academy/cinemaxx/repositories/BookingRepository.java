@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("""
@@ -41,4 +43,24 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             @Param("status") BookingStatus status,
             Pageable pageable
     );
+
+    @Query("""
+            SELECT b.secureId as secureId,
+                   u.email as email,
+                   u.name as name,
+                   m.title as movieTitle,
+                   b.bookingStatus as bookingStatus,
+                   b.paymentAt as paymentAt,
+                   b.paymentExpiredAt as paymentExpiredAt,
+                   b.createdAt as createdAt,
+                   (SELECT SUM(bs.price) FROM BookingSeat bs WHERE bs.booking = b) as totalPrice,
+                   (SELECT COUNT(bs) FROM BookingSeat bs WHERE bs.booking = b) as totalSeats
+            FROM Booking b
+            JOIN User u ON u.id = b.user.id
+            JOIN Showtime s ON s.id = b.showtime.id
+            JOIN movie m ON m.id = s.movie.id
+            WHERE b.deleted = false
+            AND b.secureId = :secureId
+            """)
+    Optional<BookingListProjection> findBookingBySecureId(@Param("secureId") String secureId);
 } 

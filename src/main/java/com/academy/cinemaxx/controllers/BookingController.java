@@ -2,7 +2,9 @@ package com.academy.cinemaxx.controllers;
 
 import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
 import com.academy.cinemaxx.dtos.response.BookingListResponseDTO;
+import com.academy.cinemaxx.dtos.response.BookingDetailResponseDTO;
 import com.academy.cinemaxx.dtos.response.PaginationResponseDTO;
+import com.academy.cinemaxx.dtos.response.ResponseDTO;
 import com.academy.cinemaxx.enums.BookingStatus;
 import com.academy.cinemaxx.enums.SortDirection;
 import com.academy.cinemaxx.services.BookingService;
@@ -57,4 +59,11 @@ public class BookingController {
         return ResponseEntity.ok(pagination);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO<BookingDetailResponseDTO>> getBookingDetail(
+            @PathVariable String id
+    ) {
+        BookingDetailResponseDTO booking = bookingService.getBookingBySecureId(id);
+        return ResponseEntity.ok(ResponseDTO.success(booking));
+    }
 }
