@@ -30,7 +30,7 @@ public class SeatServiceImpl implements SeatService {
         List<BookingSeat> bookedSeats = bookingSeatRepository.findBookedSeatsByShowtimeSecureId(showtimeId);
         Map<Long, Boolean> bookedSeatMap = bookedSeats.stream()
                 .map(bs -> bs.getSeat().getId())
-                .collect(Collectors.toMap(id -> id, id -> true));
+                .collect(Collectors.toMap(id -> id, _ -> true));
 
         return seats.stream()
                 .collect(

@@ -22,9 +22,9 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         this.showtimeRepository = showtimeRepository;
     }
 
-    public List<MovieShowtimeResponseDTO> getShowtime(String id, Long date) {
+    public List<MovieShowtimeResponseDTO> getShowtimeByMovieIdAndCityCode(String id, String cityCode, Long date) {
         LocalDate currentDate = DateTimeUtils.fromEpochDay(date);
-        List<ShowtimeProjection> projections = showtimeRepository.findShowtimeByMovieId(id, currentDate);
+        List<ShowtimeProjection> projections = showtimeRepository.findShowtimeByMovieSecureIdAndCityCode(id, cityCode, currentDate);
 
         return projections
                 .stream()

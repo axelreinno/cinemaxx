@@ -21,7 +21,7 @@ public class Movie extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String secureId = UUID.randomUUID().toString();
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar")
     private String title;
 
     @Column(columnDefinition = "text")

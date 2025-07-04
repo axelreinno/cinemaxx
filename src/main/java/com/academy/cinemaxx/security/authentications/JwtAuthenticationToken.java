@@ -9,11 +9,12 @@ import java.util.Collection;
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private final RawAccessJwtToken rawAccessToken;
-    private Principal principal;
+    private final Principal principal;
 
     public JwtAuthenticationToken(RawAccessJwtToken unsafeToken) {
         super(null);
         this.rawAccessToken = unsafeToken;
+        this.principal = null;
         setAuthenticated(false);
     }
 
@@ -26,7 +27,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
-        return rawAccessToken;
+        return isAuthenticated() ? null : rawAccessToken;
     }
 
     @Override

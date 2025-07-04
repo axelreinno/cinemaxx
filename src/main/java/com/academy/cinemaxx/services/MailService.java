@@ -1,5 +1,6 @@
 package com.academy.cinemaxx.services;
 
 public interface MailService {
-    void sendMail(String messages) throws Exception;
+    void sendMail(String email, String message);
+    void sendOtpEmail(String email, String otp);
 }

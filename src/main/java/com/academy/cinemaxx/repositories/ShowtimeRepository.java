@@ -27,12 +27,15 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
         JOIN h.cinema c
         JOIN c.city ci
         JOIN s.movie m
-        WHERE m.secureId = :id
+        WHERE m.secureId = :secureId
+        AND ci.code = :cityCode
         AND DATE(s.startTime) = :date
+        AND s.deleted = false
         ORDER BY c.name, h.name, s.startTime
     """)
-    List<ShowtimeProjection> findShowtimeByMovieId(
-            @Param("id") String id,
+    List<ShowtimeProjection> findShowtimeByMovieSecureIdAndCityCode(
+            @Param("secureId") String secureId,
+            @Param("cityCode") String cityCode,
             @Param("date") LocalDate date
     );
 

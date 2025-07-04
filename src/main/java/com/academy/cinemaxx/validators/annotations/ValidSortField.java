@@ -1,6 +1,5 @@
 package com.academy.cinemaxx.validators.annotations;
 
-import com.academy.cinemaxx.validators.SortDirectionValidator;
 import com.academy.cinemaxx.validators.SortFieldValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

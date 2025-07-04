@@ -1,7 +1,6 @@
 package com.academy.cinemaxx.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
 import java.util.List;

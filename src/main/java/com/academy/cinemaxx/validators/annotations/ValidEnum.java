@@ -1,7 +1,6 @@
 package com.academy.cinemaxx.validators.annotations;
 
 import com.academy.cinemaxx.validators.EnumValidator;
-import com.academy.cinemaxx.validators.EpochDayFromTodayValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

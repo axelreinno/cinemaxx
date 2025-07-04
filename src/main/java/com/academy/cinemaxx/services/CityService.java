@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface CityService {
-    public PaginationResponseDTO<CityResponseDTO> getCities(String name, Pageable pageable);
+    PaginationResponseDTO<CityResponseDTO> getCities(String name, Pageable pageable);
 }

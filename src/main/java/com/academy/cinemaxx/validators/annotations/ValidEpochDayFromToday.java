@@ -1,7 +1,6 @@
 package com.academy.cinemaxx.validators.annotations;
 
 import com.academy.cinemaxx.validators.EpochDayFromTodayValidator;
-import com.academy.cinemaxx.validators.SortDirectionValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

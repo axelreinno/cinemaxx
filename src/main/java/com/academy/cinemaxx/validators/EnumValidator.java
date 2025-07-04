@@ -1,11 +1,9 @@
 package com.academy.cinemaxx.validators;
 
 import com.academy.cinemaxx.validators.annotations.ValidEnum;
-import com.academy.cinemaxx.validators.annotations.ValidEpochDayFromToday;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;

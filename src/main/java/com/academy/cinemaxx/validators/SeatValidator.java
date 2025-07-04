@@ -3,7 +3,6 @@ package com.academy.cinemaxx.validators;
 import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
 import com.academy.cinemaxx.entities.Seat;
 import com.academy.cinemaxx.entities.Showtime;
-import com.academy.cinemaxx.entities.User;
 import com.academy.cinemaxx.enums.SeatStatus;
 import com.academy.cinemaxx.repositories.BookingSeatRepository;
 import com.academy.cinemaxx.repositories.SeatRepository;

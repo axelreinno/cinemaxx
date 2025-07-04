@@ -5,11 +5,14 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Component
 public class JwtTokenHeaderExtractor {
     public static String HEADER_PREFIX = "Bearer ";
 
-    public RawAccessJwtToken extract(String header) {
+    public Optional<RawAccessJwtToken> extract(String header) {
         if (!StringUtils.hasText(header)) {
             throw new AuthenticationServiceException("Authorization header cannot be blank!");
         }
@@ -22,6 +25,6 @@ public class JwtTokenHeaderExtractor {
             throw new AuthenticationServiceException("Invalid authorization header format.");
         }
 
-        return new RawAccessJwtToken(header.substring(HEADER_PREFIX.length()));
+        return Optional.of(new RawAccessJwtToken(header.substring(HEADER_PREFIX.length())));
     }
 }

@@ -11,6 +11,9 @@ public record ResponseDTO<TData>(
     public static <TData> ResponseDTO<TData> success(TData data) {
         return new ResponseDTO<>("success", "OK", data);
     }
+    public static <TData> ResponseDTO<TData> success(String message) {
+        return new ResponseDTO<>("success", message, null);
+    }
 
     public static <TData> ResponseDTO<TData> success(String message, TData data) {
         return new ResponseDTO<>("success", message, data);
