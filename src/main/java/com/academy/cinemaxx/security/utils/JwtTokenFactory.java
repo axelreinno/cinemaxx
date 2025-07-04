@@ -20,9 +20,6 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenFactory {
 
-    @Value("${jwt.expiration}")
-    private Long expiration;
-
     private final Key key;
 
     public JwtTokenFactory(Key key) {
@@ -37,9 +34,10 @@ public class JwtTokenFactory {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
         claims.put("scopes", collection.stream().map(s -> s.getAuthority()).collect(Collectors.toList()));
         claims.put("email", user.getEmail());
+        claims.put("id", user.getSecureId());
 
         LocalDateTime currentTime = LocalDateTime.now();
-        LocalDateTime expirationTime = currentTime.plusMinutes(expiration);
+        LocalDateTime expirationTime = currentTime.plusDays(1);
 
         Date currentDate = Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant());
         Date expirationDate = Date.from(expirationTime.atZone(ZoneId.systemDefault()).toInstant());

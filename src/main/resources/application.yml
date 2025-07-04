@@ -34,11 +34,13 @@ springdoc:
 
 server:
   port: 8080
+
 minio:
   url: http://127.0.0.1:9000
-  access-key: kLUMrSHWCxUl49MUg65y
-  access-secret: 5PA1VmBeXv9bCMhzV44EEjL2mT3UhblwJSIsueqk
+  access-key: TWgkv9AlcqhsF5g4sjXN
+  access-secret: D9FSZjFpLqV5cYoogN2fKKB2FliNwTYhffPKZif1
   bucket-name: cinemaxx
+  
 mail:
   smtp:
     host: sandbox.smtp.mailtrap.io
@@ -54,3 +56,5 @@ mail:
 jwt:
   secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
   expiration: 30
+  refresh:
+    expiration: 7

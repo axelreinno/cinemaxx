@@ -5,5 +5,5 @@ import com.academy.cinemaxx.dtos.response.MovieShowtimeResponseDTO;
 import java.util.List;
 
 public interface ShowtimeService {
-    public List<MovieShowtimeResponseDTO> getShowtime(String id, Long date);
+    List<MovieShowtimeResponseDTO> getShowtimeByMovieIdAndCityCode(String id, String cityCode, Long date);
 }

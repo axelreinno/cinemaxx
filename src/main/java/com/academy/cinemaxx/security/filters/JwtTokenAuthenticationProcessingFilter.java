@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import java.io.IOException;
 
 public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+
+    private static final String HEADER_AUTHORIZATION = "Authorization";
 
     private final AuthenticationFailureHandler failureHandler;
     private final JwtTokenHeaderExtractor tokenExtractor;
@@ -37,9 +40,14 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
             HttpServletResponse response
     )
             throws AuthenticationException, IOException, ServletException {
-        String tokenPayload = request.getHeader("Authorization");
-        RawAccessJwtToken token = (RawAccessJwtToken) tokenExtractor.extract(tokenPayload);
-        return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
+        String tokenPayload = request.getHeader(HEADER_AUTHORIZATION);
+        if (tokenPayload == null || tokenPayload.isBlank()) {
+            throw new BadCredentialsException("Authorization header missing");
+        }
+
+        RawAccessJwtToken rawToken = tokenExtractor.extract(tokenPayload)
+                .orElseThrow(() -> new BadCredentialsException("Invalid token format"));
+        return getAuthenticationManager().authenticate(new JwtAuthenticationToken(rawToken));
     }
 
     @Override

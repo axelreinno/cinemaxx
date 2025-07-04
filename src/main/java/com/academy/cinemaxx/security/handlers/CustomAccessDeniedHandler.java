@@ -11,6 +11,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -21,14 +22,19 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response,
-                      AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AccessDeniedException accessDeniedException
+    ) throws IOException, ServletException {
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        ErrorResponseDTO<Object> errorResponse = ErrorResponseDTO.error(
-            "Access denied. You don't have permission to access this resource."
-        );
+        ErrorResponseDTO errorResponse = ErrorResponseDTO.error(
+                HttpStatus.FORBIDDEN.value(),
+                HttpStatus.FORBIDDEN.getReasonPhrase(),
+                request.getRequestURI(),
+                List.of("Access denied. You don't have permission to access this resource."));
 
         objectMapper.writeValue(response.getWriter(), errorResponse);
     }

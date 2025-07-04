@@ -2,7 +2,9 @@ package com.academy.cinemaxx.security.providers;
 
 import com.academy.cinemaxx.audits.Principal;
 import com.academy.cinemaxx.security.authentications.JwtAuthenticationToken;
+import com.academy.cinemaxx.security.exceptions.JwtExpiredTokenException;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +15,7 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,17 +40,20 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                     .parseClaimsJws(token)
                     .getBody();
 
-            String subject = claims.getSubject();
+            if (claims.getExpiration().before(new Date())) {
+                throw new JwtExpiredTokenException(authToken.getToken(), "Token expired");
+            }
+
             List<String> scopes = claims.get("scopes", List.class);
             List<GrantedAuthority> authorities = scopes.stream().map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
 
-            Principal principal = new Principal(subject, authorities);
+            Principal principal = new Principal(claims.getSubject(), authorities);
 
             return new JwtAuthenticationToken(principal, authToken.getToken(), principal.getAuthorities());
 
         } catch (Exception e) {
-            return null;
+            throw new BadCredentialsException("Invalid JWT token", e);
         }
     }
 

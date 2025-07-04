@@ -2,7 +2,6 @@ package com.academy.cinemaxx.entities;
 
 import com.academy.cinemaxx.enums.SeatStatus;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
 import java.util.UUID;

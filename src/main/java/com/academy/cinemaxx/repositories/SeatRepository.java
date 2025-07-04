@@ -25,10 +25,11 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
         JOIN s.seatElement se
         JOIN s.hall h
         JOIN h.showtimes st
-        WHERE st.secureId = :id
+        WHERE st.secureId = :secureId
+        AND s.deleted = false
         ORDER BY s.row, s.column
     """)
-    List<SeatProjection> findSeatsByShowtimeSecureId(@Param("id") String showtimeSecureId);
+    List<SeatProjection> findSeatsByShowtimeSecureId(@Param("secureId") String secureId);
 
     List<Seat> findBySecureIdIn(List<String> secureIds);
 } 

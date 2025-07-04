@@ -1,7 +1,5 @@
 package com.academy.cinemaxx;
 
-import com.academy.cinemaxx.services.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

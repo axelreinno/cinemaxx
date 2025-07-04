@@ -4,19 +4,20 @@ import com.academy.cinemaxx.dtos.request.BookingSeatsRequestDTO;
 import com.academy.cinemaxx.dtos.response.*;
 import com.academy.cinemaxx.entities.*;
 import com.academy.cinemaxx.enums.BookingStatus;
+import com.academy.cinemaxx.enums.UserRole;
 import com.academy.cinemaxx.exceptions.BadRequestRuntimeException;
+import com.academy.cinemaxx.projections.BookingDetailProjection;
 import com.academy.cinemaxx.projections.BookingListProjection;
 import com.academy.cinemaxx.repositories.*;
 import com.academy.cinemaxx.services.BookingService;
 import com.academy.cinemaxx.services.UserService;
 import com.academy.cinemaxx.utils.DateTimeUtils;
+import com.academy.cinemaxx.utils.HelperUtils;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,9 +44,8 @@ public class BookingServiceImpl implements BookingService {
         this.userService = userService;
     }
 
-    @Override
     @Transactional
-    public void createBooking(BookingSeatsRequestDTO request) {
+    public void createBookingUser(BookingSeatsRequestDTO request) {
         User currentUser = userService.getCurrentUser();
         Showtime showtime = showtimeRepository.findBySecureId(request.showtimeId()).orElseThrow();
         List<Seat> selectedSeats = seatRepository.findBySecureIdIn(request.seatIds());
@@ -73,7 +73,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void payBooking(String id) {
         Booking booking = bookingRepository.findBySecureId(id)
-                .orElseThrow(() -> new BadRequestRuntimeException("Booking invalid"));
+                .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
 
         LocalDateTime now = LocalDateTime.now();
         if (now.isAfter(booking.getPaymentExpiredAt())) {
@@ -88,17 +88,37 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void cancelBooking(String id) {
-        Booking booking = bookingRepository.findBySecureId(id)
-                .orElseThrow(() -> new BadRequestRuntimeException("Booking invalid"));
+        User currentUser = userService.getCurrentUser();
+        Booking booking;
+
+        if(currentUser.getRole() == UserRole.ROLE_ADMIN) {
+            booking = bookingRepository.findBySecureId(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
+        } else {
+            booking = bookingRepository.findByUserAndSecureId(currentUser, id)
+                    .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
+        }
 
         booking.setBookingStatus(BookingStatus.CANCELLED);
+
 
         bookingRepository.save(booking);
     }
 
     @Override
     public PaginationResponseDTO<BookingListResponseDTO> getBookings(String movie, String name, String email, BookingStatus status, Pageable pageable) {
-        Page<BookingListProjection> bookings = bookingRepository.findAllBookingList(movie, name, email, status, pageable);
+        User currentUser = userService.getCurrentUser();
+        Page<BookingListProjection> bookings;
+
+        movie = HelperUtils.normalize(movie);
+        name = HelperUtils.normalize(name);
+        email = HelperUtils.normalize(email);
+
+        if(currentUser.getRole() == UserRole.ROLE_ADMIN) {
+            bookings = bookingRepository.findAllBookingList(movie, name, email, status, pageable);
+        } else {
+            bookings = bookingRepository.findAllBookingListByUser(currentUser.getSecureId(), movie, name, email, status, pageable);
+        }
 
         return new PaginationResponseDTO<>(
                 bookings.getSize(),
@@ -109,7 +129,10 @@ public class BookingServiceImpl implements BookingService {
                         booking.getEmail(),
                         booking.getName(),
                         booking.getMovieTitle(),
+                        booking.getMovieThumbnailUrl(),
+                        booking.getHallName(),
                         booking.getBookingStatus(),
+                        DateTimeUtils.toEpochSecond(booking.getShowtimeAt()),
                         booking.getPaymentAt() != null ? DateTimeUtils.toEpochSecond(booking.getPaymentAt()) : null,
                         DateTimeUtils.toEpochSecond(booking.getPaymentExpiredAt()),
                         booking.getTotalPrice(),
@@ -120,8 +143,16 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDetailResponseDTO getBookingBySecureId(String secureId) {
-        BookingListProjection booking = bookingRepository.findBookingBySecureId(secureId)
-                .orElseThrow(() -> new BadRequestRuntimeException("Booking invalid"));
+        User currentUser = userService.getCurrentUser();
+        BookingDetailProjection booking;
+
+        if(currentUser.getRole() == UserRole.ROLE_ADMIN) {
+            booking = bookingRepository.findBookingBySecureId(secureId)
+                    .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
+        } else {
+            booking = bookingRepository.findBookingBySecureIdAndUserSecureId(secureId, currentUser.getSecureId())
+                    .orElseThrow(() -> new EntityNotFoundException("Booking not found"));
+        }
 
         List<BookingSeat> bookingSeats = bookingSeatRepository.findByBookingSecureId(secureId);
         List<BookingSeatDetailResponseDTO> seats = bookingSeats.stream()
@@ -139,7 +170,17 @@ public class BookingServiceImpl implements BookingService {
                 booking.getEmail(),
                 booking.getName(),
                 booking.getMovieTitle(),
+                booking.getMovieDescription(),
+                booking.getMovieDurationMin(),
+                booking.getMovieAgeRating(),
+                booking.getMovieThumbnailUrl(),
+                booking.getHallName(),
+                booking.getHallType(),
+                booking.getCinemaName(),
+                booking.getCinemaAddress(),
+                booking.getCityName(),
                 booking.getBookingStatus(),
+                DateTimeUtils.toEpochSecond(booking.getShowtimeAt()),
                 booking.getPaymentAt() != null ? DateTimeUtils.toEpochSecond(booking.getPaymentAt()) : null,
                 DateTimeUtils.toEpochSecond(booking.getPaymentExpiredAt()),
                 booking.getTotalPrice(),

@@ -14,10 +14,10 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
         SELECT bs FROM BookingSeat bs
         JOIN bs.booking b
         JOIN b.showtime st
-        WHERE st.secureId = :id
+        WHERE st.secureId = :secureId
         AND b.bookingStatus IN ('PENDING', 'PAID')
     """)
-    List<BookingSeat> findBookedSeatsByShowtimeSecureId(@Param("id") String showtimeId);
+    List<BookingSeat> findBookedSeatsByShowtimeSecureId(@Param("secureId") String secureId);
 
     @Query("""
         SELECT bs FROM BookingSeat bs
@@ -35,8 +35,8 @@ public interface BookingSeatRepository extends JpaRepository<BookingSeat, Long> 
     @Query("""
         SELECT bs FROM BookingSeat bs
         JOIN bs.booking b
-        WHERE b.secureId = :bookingId
+        WHERE b.secureId = :secureId
         AND b.deleted = false
     """)
-    List<BookingSeat> findByBookingSecureId(@Param("bookingId") String bookingId);
+    List<BookingSeat> findByBookingSecureId(@Param("secureId") String secureId);
 } 

@@ -2,7 +2,6 @@ package com.academy.cinemaxx.entities;
 
 import com.academy.cinemaxx.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 
 import java.util.UUID;
@@ -20,14 +19,15 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String secureId = UUID.randomUUID().toString();
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar")
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "varchar")
     private String email;
 
     private String phone;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
