@@ -1,10 +1,12 @@
 package com.academy.cinemaxx.services.impl;
 
 import com.academy.cinemaxx.dtos.request.LoginRequestDTO;
+import com.academy.cinemaxx.dtos.request.RegisterRequestDTO;
 import com.academy.cinemaxx.dtos.request.VerifyRequestDTO;
 import com.academy.cinemaxx.dtos.response.AuthResponseDTO;
 import com.academy.cinemaxx.entities.User;
 import com.academy.cinemaxx.entities.UserOtp;
+import com.academy.cinemaxx.enums.UserRole;
 import com.academy.cinemaxx.exceptions.BadRequestRuntimeException;
 import com.academy.cinemaxx.exceptions.LoginException;
 import com.academy.cinemaxx.repositories.UserOtpRepository;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -99,6 +102,21 @@ public class AuthServiceImpl implements AuthService {
                 user.getEmail(),
                 user.getRole()
         );
-
     }
+
+    public void register(RegisterRequestDTO request) {
+        Optional<User> user = userRepository.findByEmail(request.email());
+
+        if(user.isPresent()) {
+            throw new BadRequestRuntimeException("Email already registered");
+        }
+
+        User newUser = new User();
+        newUser.setName(request.fullName());
+        newUser.setEmail(request.email());
+        newUser.setPhone(request.phoneNumber());
+        newUser.setRole(UserRole.ROLE_USER);
+        userRepository.save(newUser);
+    }
+
 }
